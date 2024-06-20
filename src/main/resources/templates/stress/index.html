@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/common}">
+    <head>
+        <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">産業医メニュー</title>
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="container mx-auto px-4 d-flex flex-column align-items-left justify-content-center">
+                <!--産業医登録以外は全部ブランクページにする-->
+                <div class="mt-5 fs-2">
+                    <a href="/blank" class="text-decoration-none text-black-50">■ 教育新規作成</a>
+                </div>
+                <div class="mt-5 fs-2">
+                    <a href="/blank" class="text-decoration-none text-black-50">■ 教育一覧</a>
+                </div>
+                <div class="mt-5 fs-2">
+                    <a href="/blank" class="text-decoration-none text-black-50">■ 全般設定</a>
+                </div>
+                <div class="mt-5 fs-2">
+                    <a href="/haisha-list" class="text-decoration-none text-black-50">■ 産業医登録</a>
+                </div>
+                <div class="mt-5 fs-2">
+                    <a href="/blank" class="text-decoration-none text-black-50">■ 管理者登録</a>
+                </div>
+                <div class="mt-5 fs-2">
+                    <a href="/blank" class="text-decoration-none text-black-50">■ 未受診者一覧</a>
+                </div>
+                <div class="mt-5 fs-2">
+                    <a href="/blank" class="text-decoration-none text-black-50">■ 受診者一覧</a>
+                </div>
+                <div class="mt-5 fs-2">
+                    <a href="/blank" class="text-decoration-none text-black-50">■ 診断の削除</a>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

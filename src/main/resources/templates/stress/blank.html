@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/common}">
+    <head>
+        <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">空ページ</title>
+        <style>
+            .center-content {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh; /* viewport height */
+            }
+        </style>
+    </head>
+    <body>
+        <div layout:fragment="content" class="center-content">
+            <h1 class="text-center">現在、このページはご利用頂けません。</h1>
+        </div>
+    </body>
+</html>
