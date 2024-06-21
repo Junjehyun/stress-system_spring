@@ -1,4 +1,4 @@
-package com.ptsol.stress_system.Controller;
+package com.ptsol.stress_system.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

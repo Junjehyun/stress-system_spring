@@ -67,13 +67,13 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
+                    <tr th:each="user, iterStat : ${users}">
+                        <td th:text="${iterStat.index + 1}"></td>
+                        <td th:text="${user.userId}"></td>
+                        <td th:text="${user.name}"></td>
                         <td></td>
                         <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td th:text="${user.kengenKubun}"></td>
                         <td>
                             <button class="btn btn-dark">変更</button>
                             <button class="btn btn-warning text-white">削除</button>

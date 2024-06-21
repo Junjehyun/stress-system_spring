@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ptsol.stress_system.mapper.UserMapper">
+    <select id="findAll" resultType="com.ptsol.stress_system.model.User">
+        SELECT
+            USER_ID as userId,
+            name,
+            KENGEN_KUBUN as kengenKubun
+        FROM USER
+    </select>
+</mapper>

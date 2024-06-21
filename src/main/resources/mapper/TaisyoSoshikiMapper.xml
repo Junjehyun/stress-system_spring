@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ptsol.stress_system.mapper.TaisyoSoshikiMapper">
+    <resultMap id="TaisyoSoshikiResultMap" type="com.ptsol.stress_system.model.TaisyoShosiki">
+        <result property="kyoikuCode" column="KYOIKU_CODE"/>
+        <result property="kaisyaCode" column="KAISYA_CODE"/>
+        <result property="soshikiCode" column="SOSHIKI_CODE"/>
+        <result property="torokuDate" column="TOROKU_DATE"/>
+        <result property="torokuCn" column="TOROKU_CN"/>
+        <result property="torokuTrm" column="TOROKU_TRM"/>
+        <result property="koshinDate" column="KOSHIN_DATE"/>
+        <result property="koshinCn" column="KOSHIN_CN"/>
+        <result property="koshinTrm" column="KOSHIN_TRM"/>
+        <result property="sakujoDate" column="SAKUJO_DATE"/>
+        <result property="sakujoCn" column="SAKUJO_CN"/>
+        <result property="sakujoTrm" column="SAKUJO_TRM"/>
+        <result property="sakujoFlag" column="SAKUJO_FLAG"/>
+        <result property="kaisyaNameJpn" column="KAISYA_NAME_JPN"/>
+        <result property="soshikiNameJpn" column="SOSHIKI_NAME_JPN"/>
+        <result property="soshikiNameRyakusyo1" column="SOSHIKI_NAME_RYAKUSYO1"/>
+    </resultMap>
+    <select id="findAll" resultMap="TaisyoSoshikiResultMap">
+        SELECT
+            KYOIKU_CODE,
+            KAISYA_CODE,
+            SOSHIKI_CODE,
+            TOROKU_DATE,
+            TOROKU_CN,
+            TOROKU_TRM,
+            KOSHIN_DATE,
+            KOSHIN_CN,
+            KOSHIN_TRM,
+            SAKUJO_DATE,
+            SAKUJO_CN,
+            SAKUJO_TRM,
+            SAKUJO_FLAG,
+            KAISYA_NAME_JPN,
+            SOSHIKI_NAME_JPN,
+            SOSHIKI_NAME_RYAKUSYO1
+        FROM TAISYO_SOSHIKI
+    </select>
+</mapper>
