@@ -11,8 +11,8 @@ public class TaisyoSoshikiService {
     private final TaisyoSoshikiMapper taisyoSoshikiMapper;
 
     @Autowired
-    public TaisyoSoshikiService(TaisyoSoshikiMapper taisyoSosikiMapper) {
-        this.taisyoSoshikiMapper = taisyoSosikiMapper;
+    public TaisyoSoshikiService(TaisyoSoshikiMapper taisyoSoshikiMapper) {
+        this.taisyoSoshikiMapper = taisyoSoshikiMapper;
     }
     public List<TaisyoSoshikiMapper> getAllTaisyoSoshiki() {
         return taisyoSoshikiMapper.findAll();

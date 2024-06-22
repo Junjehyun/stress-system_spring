@@ -36,4 +36,10 @@
             KAISYA_NAME_ENG
         FROM KAISYA_MST
     </select>
+    <select id="findByName" resultMap="KaisyaMstResultMap">
+        SELECT
+        *
+        FROM KAISYA_MST
+        WHERE KAISYA_NAME_JPN LIKE CONCAT('%', #{name}, '%')
+    </select>
 </mapper>

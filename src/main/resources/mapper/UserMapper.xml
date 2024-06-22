@@ -4,6 +4,13 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.ptsol.stress_system.mapper.UserMapper">
+    <resultMap id="UserResultMap" type="com.ptsol.stress_system.model.User">
+        <result property="userId" column="USER_ID"/>
+        <result property="name" column="name"/>
+        <result property="kengenKubun" column="KENGEN_KUBUN"/>
+        <result property="companyName" column="company_name" />
+        <result property="organizationName" column="organization_name" />
+    </resultMap>
     <select id="findAll" resultType="com.ptsol.stress_system.model.User">
         SELECT
             USER_ID as userId,
@@ -11,4 +18,12 @@
             KENGEN_KUBUN as kengenKubun
         FROM USER
     </select>
+
+    <select id="findAllWithDetails" resultMap="UserResultMap">
+        SELECT u.*, k.KAISYA_NAME_JPN as company_name, t.SOSHIKI_NAME_JPN as organization_name
+        FROM USER u
+        LEFT JOIN KAISYA_MST k ON u.KAISYA_CODE = k.KAISYA_CODE
+        LEFT JOIN TAISYO_SOSHIKI t ON u.SOSHIKI_CODE = t.SOSHIKI_CODE
+    </select>
+
 </mapper>

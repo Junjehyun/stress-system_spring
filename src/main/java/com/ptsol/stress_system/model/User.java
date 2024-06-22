@@ -21,6 +21,8 @@ public class User {
     private String kaisyaCode;
     private String soshikiCode;
     private String name;
+    private String companyName; // 追加
+    private String organizationName; // 追加
 
     // getters and setters
 
@@ -150,5 +152,21 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    public String getOrganizationName() {
+        return organizationName;
+    }
+
+    public void setOrganizationName(String organizationName) {
+        this.organizationName = organizationName;
     }
 }
