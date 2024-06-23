@@ -40,4 +40,10 @@
             SOSHIKI_NAME_RYAKUSYO1
         FROM TAISYO_SOSHIKI
     </select>
+    <select id="findByName" resultMap="TaisyoSoshikiResultMap">
+        SELECT
+        *
+        FROM TAISYO_SOSHIKI
+        WHERE SOSHIKI_NAME_JPN LIKE CONCAT('%', #{soshikiName}, '%')
+    </select>
 </mapper>

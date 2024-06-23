@@ -1,8 +1,13 @@
 package com.ptsol.stress_system.controller;
 
+import com.ptsol.stress_system.model.HyojiSearch;
 import com.ptsol.stress_system.model.KaisyaMst;
+import com.ptsol.stress_system.model.TaisyoSoshiki;
 import com.ptsol.stress_system.model.User;
+import com.ptsol.stress_system.service.HyojiBtnService;
+import com.ptsol.stress_system.service.TaisyoSoshikiService;
 import com.ptsol.stress_system.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.ui.Model;
@@ -11,12 +16,32 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.ptsol.stress_system.service.KaisyaMstService;
 
+import javax.naming.directory.SearchResult;
 import java.util.List;
 
 @Controller
 public class DoctorListController {
+    /**
+     * UserServiceをDIする
+     */
+    @Autowired
     private final UserService userService;
+    /**
+     * KaisyaMstServiceをDIする
+     */
+    @Autowired
     private KaisyaMstService kaisyaMstService;
+    /**
+     * TaisyoSoshikiServiceをDIする
+     */
+    @Autowired
+    private TaisyoSoshikiService taisyoSoshikiService;
+
+    /**
+     * HyojiBtnServiceをDIする
+     */
+    @Autowired
+    private HyojiBtnService hyojiBtnService;
 
     public DoctorListController(UserService userService) {
         this.userService = userService;
@@ -35,10 +60,35 @@ public class DoctorListController {
         return "stress/doctor-list";
     }
 
-    // 내일 여기서부터 다시
     @GetMapping("/company-search")
     @ResponseBody
     public List<KaisyaMst> companySearch(@RequestParam("name") String name) {
         return kaisyaMstService.searchCompaniesByName(name);
+    }
+
+    @GetMapping("/soshiki-search")
+    @ResponseBody
+    public List<TaisyoSoshiki> soshikiSearch(@RequestParam("soshikiName") String soshikiName) {
+        return taisyoSoshikiService.searchSoshikiByName(soshikiName);
+    }
+
+    /**
+     * 表示するボタンを押した時、設定した検索条件による、ユーザーリストを取得するメソッド
+     * @param companyName 会社名
+     * @param soshikiName 組織名
+     * @param kengenKubun 権限区分
+     * @Param Model model
+     * @return ユーザーリスト
+     */
+    @GetMapping("/hyoji-search")
+    public String hyojiSearch(
+            Model model,
+            @RequestParam(required = false) String companyName,
+            @RequestParam(required = false) String soshikiName,
+            @RequestParam(required = false) Integer kengenKubun) {
+        List<HyojiSearch> users = hyojiBtnService.hyojiSearchUsers(companyName, soshikiName, kengenKubun);
+        System.out.println("hyojiSearch method called");
+        model.addAttribute("users", users);
+        return "stress/doctor-list";
     }
 }

@@ -2,86 +2,68 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/common}">
     <head>
         <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">産業医一覧</title>
-        <script>
-            function searchCompanies() {
-                var name = document.getElementById('companyNameInput').value;
-                $.ajax({
-                    url: '/company-search',
-                    type: 'GET',
-                    data: {
-                        name: name
-                    },
-                    success: function(data) {
-                        var select = document.getElementById('companySelect');
-                        select.innerHTML = '<option value="">会社名を選択</option>>';
-                        data.forEach(function(company){
-                            var option = document.createElement('option');
-                            option.value = company.kaisyaCode;
-                            option.text = company.kaisyaNameJpn;
-                            select.appendChild(option);
-                        });
-                    }
-                });
-            }
-        </script>
     </head>
     <body>
         <div layout:fragment="content" class="container" style="max-width: 72rem; padding-top: 2rem; padding-bottom: 2rem;">
             <div class="bg-light p-3 rounded shadow" style="gap: 12px;">
-                <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
-                    <div class="mx-auto mt-3" style="width: 60%;">
-                        <!--会社名-->
-                        <div class="d-flex align-items-center justify-content-start mb-3">
-                            <div class="form-check form-check-inline">
-                                <input type="checkbox" class="form-checkbox form-check-input">
-                                <label class="form-check-label text-black-50 fw-bold">会社名</label>
-                            </div>
-                            <input id="companyNameInput" type="text" class="form-control mx-2" placeholder="会社名を入力" style="width: 30%;">
-                            <button type="button" class="btn btn-outline-secondary fw-bold mx-2" onclick="searchCompanies()">
-                                検索
-                            </button>
-                            <select id="companySelect" name="" class="form-select mx-2" style="width: 30%;">
-                                <option value="">会社名を選択</option>
-                            </select>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-start mb-3">
-                            <div class="form-check form-check-inline">
-                                <input type="checkbox" class="form-checkbox form-check-input">
-                                <label class="form-check-label text-black-50 fw-bold">組織名</label>
-                            </div>
-                            <input type="text" class="form-control mx-2" placeholder="組織名を入力" style="width: 30%;">
-                            <button type="button" class="btn btn-outline-secondary fw-bold mx-2">検索</button>
-                            <select name="" class="form-select mx-2" style="width: 30%;">
-                                <option value="">組織名を選択</option>
-                            </select>
-                        </div>
-                        <!--権限区分-->
-                        <div class="mt-4">
-                            <div class="form-check form-check-inline">
-                                <input type="checkbox" class="form-checkbox form-check-input">
-                                <span class="form-check-label text-black-50 fw-bold">権限区分</span>
-                            </div>
-                            <div class="mt-2">
-                                <div class="form-check form-check-inline" style="margin-right: 5px;">
-                                    <input type="radio" class="form-check-input" name="kengenKubun">
-                                    <label class="form-check-label text-black-50 fw-bold">全社</label>
-                                </div>
+                <form th:action="@{/hyoji-search}" method="get">
+                    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
+                        <div class="mx-auto mt-3" style="width: 60%;">
+                            <!--会社名-->
+                            <div class="d-flex align-items-center justify-content-start mb-3">
                                 <div class="form-check form-check-inline">
-                                    <input type="radio" class="form-check-input" name="kengenKubun">
-                                    <label class="form-check-label text-black-50 fw-bold">自社</label>
+                                    <input type="checkbox" class="form-checkbox form-check-input">
+                                    <label class="form-check-label text-black-50 fw-bold">会社名</label>
+                                </div>
+                                <input id="companyNameInput" name="companyName" type="text" class="form-control mx-2" placeholder="会社名を入力" style="width: 30%;">
+                                <button type="button" class="btn btn-outline-secondary fw-bold mx-2" onclick="searchCompanies()">
+                                    検索
+                                </button>
+                                <select id="companySelect" name="" class="form-select mx-2" style="width: 30%;">
+                                    <option value="">会社名を選択</option>
+                                </select>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-start mb-3">
+                                <div class="form-check form-check-inline">
+                                    <input type="checkbox" class="form-checkbox form-check-input">
+                                    <label class="form-check-label text-black-50 fw-bold">組織名</label>
+                                </div>
+                                <input id="soshikiNameInput" name="soshikiName" type="text" class="form-control mx-2" placeholder="組織名を入力" style="width: 30%;">
+                                <button type="button" class="btn btn-outline-secondary fw-bold mx-2" onclick="searchSoshikis()">
+                                    検索
+                                </button>
+                                <select id="soshikiSelect" name="" class="form-select mx-2" style="width: 30%;">
+                                    <option value="">組織名を選択</option>
+                                </select>
+                            </div>
+                            <!--権限区分-->
+                            <div class="mt-4">
+                                <div class="form-check form-check-inline">
+                                    <input type="checkbox" class="form-checkbox form-check-input">
+                                    <span class="form-check-label text-black-50 fw-bold">権限区分</span>
+                                </div>
+                                <div class="mt-2">
+                                    <div class="form-check form-check-inline" style="margin-right: 5px;">
+                                        <input type="radio" class="form-check-input" name="kengenKubun" value="1">
+                                        <label class="form-check-label text-black-50 fw-bold">全社</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input type="radio" class="form-check-input" name="kengenKubun" value="2">
+                                        <label class="form-check-label text-black-50 fw-bold">自社</label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="d-flex justify-content-center mt-4">
-                    <button class="btn btn-outline-secondary fw-bold" style="margin-right: 5px;">
-                        表示する
-                    </button>
-                    <button class="btn btn-outline-success fw-bold">
-                        追加する
-                    </button>
-                </div>
+                    <div class="d-flex justify-content-center mt-4">
+                        <button type="submit" class="btn btn-outline-secondary fw-bold" style="margin-right: 5px;">
+                            表示する
+                        </button>
+                        <button type="button" class="btn btn-outline-success fw-bold">
+                            追加する
+                        </button>
+                    </div>
+                </form>
             </div>
             <div class="table-responsive mt-3">
                 <table class="table table-sm table-bordered table-hover text-center align-middle">
@@ -116,5 +98,7 @@
                 </table>
             </div>
         </div>
+        <script th:src="@{/js/searchCompany.js}"></script>
+        <script th:src="@{/js/searchSoshiki.js}"></script>
     </body>
 </html>
