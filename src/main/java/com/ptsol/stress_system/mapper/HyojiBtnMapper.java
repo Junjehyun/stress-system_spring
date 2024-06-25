@@ -6,21 +6,24 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
+
 /**
- * このインタフェースはMyBatisのマッパーインタフェースで、
- * ユーザーの検索条件により、データーを取得するためのメソッドを定義
+ * HyojiBtnMapperはユーザー情報をデータベースから検索するメソッドを含むインターフェース
+ * MyBatisマッパーインターフェースで、SQLマッピングファイル(hyojiBtnMapper.xml)と接続される。
+ * 
  */
 @Mapper
 public interface HyojiBtnMapper {
     /**
-     * @param companyName 会社名
-     * @param soshikiName 組織名
+     * ユーザーの情報を検索するメソッド
+     * 
+     * @param companyNameSelected 会社名
+     * @param soshikiNameSelected 組織名
      * @param kengenKubun 権限区分
-     * @return ユーザーリスト
+     * return ユーザー情報 (取得情報)
      */
     List<HyojiSearch> hyojiSearchUsers(
-            @Param("companyName") String companyName,
-            @Param("soshikiName") String soshikiName,
-            @Param("kengenKubun") Integer kengenKubun
-    );
+    @Param("companyNameSelected") String companyNameSelected,
+    @Param("soshikiNameSelected") String soshikiNameSelected,
+    @Param("kengenKubun") Integer kengenKubun);
 }

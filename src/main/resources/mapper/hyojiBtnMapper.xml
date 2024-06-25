@@ -1,27 +1,35 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ptsol.stress_system.mapper.HyojiBtnMapper">
-    <resultMap id="HyojiSearchResultMap" type="com.ptsol.stress_system.model.HyojiSearch">
+
+    <!-- <resultMap id="HyojiSearchResultMap" type="com.ptsol.stress_system.model.HyojiSearch">
         <result property="userId" column="USER_ID"/>
         <result property="name" column="name"/>
         <result property="companyName" column="company_name" />
         <result property="organizationName" column="organization_name" />
         <result property="kengenKubun" column="KENGEN_KUBUN"/>
-    </resultMap>
-    <select id="hyojiSearchUsers" resultMap="HyojiSearchResultMap">
+    </resultMap> -->
+
+    <select id="hyojiSearchUsers" resultType="com.ptsol.stress_system.model.HyojiSearch">
         <!--HyojiBtnMapper.javaのメソッドについてSQLクエリ定義
         会社名、組織名、権限区分を条件にしてユーザーリストを取得
         そして、LeftJoinを使用して、関連会社名、組織名を取得する-->
-    SELECT
-        u.USER_ID, u.name, u.KENGEN_KUBUN, k.KAISYA_NAME_JPN as company_name, t.SOSHIKI_NAME_JPN as organization_name
-        FROM USER u
-        LEFT JOIN KAISYA_MST k ON u.KAISYA_CODE = k.KAISYA_CODE
-        LEFT JOIN TAISYO_SOSHIKI t ON u.SOSHIKI_CODE = t.SOSHIKI_CODE
-    WHERE
-        (#{companyName} IS NULL OR #{companyName} = '' OR k.KAISYA_NAME_JPN = #{companyName})
-        AND (#{soshikiName} IS NULL OR #{soshikiName} = '' OR t.SOSHIKI_NAME_JPN = #{soshikiName})
-        AND (#{kengenKubun} IS NULL OR u.KENGEN_KUBUN = #{kengenKubun}) 
-        <!-- 문제는 이 쿼리 로직이군... 내일 다시  -->
-
+            SELECT 
+                u.*, hm.KAISYA_NAME_JPN as company_name, 
+                ts.SOSHIKI_NAME_JPN as organization_name
+            FROM users u
+                LEFT JOIN haisya_msts hm ON u.KAISYA_CODE = hm.KAISYA_CODE
+                LEFT JOIN taisyo_soshikis ts ON u.SOSHIKI_CODE = ts.SOSHIKI_CODE
+        <where>
+            <if test="companyNameSelected != null and companyNameSelected != ''">
+                AND u.KAISYA_CODE = #{companyNameSelected}
+            </if>
+            <if test="soshikiNameSelected != null and soshikiNameSelected != ''">
+                AND u.SOSHIKI_CODE = #{soshikiNameSelected}
+            </if>
+            <if test="kengenKubun != null and kengenKubun != ''">
+                AND u.KENGEN_KUBUN = #{kengenKubun}
+            </if>
+        </where>
     </select>
 </mapper>

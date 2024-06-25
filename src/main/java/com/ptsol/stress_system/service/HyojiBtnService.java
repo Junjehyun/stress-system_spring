@@ -13,29 +13,29 @@ import java.util.List;
  */
 @Service
 public class HyojiBtnService {
+
     @Autowired
     private HyojiBtnMapper hyojiBtnMapper;
 
     /**
-     * 検索条件による、ユーザーリストを取得するメソッド
+     * ユーザー情報を検索するサービスメソッド
+     * 
      * ＠Param companyName 会社名
      * ＠Param soshikiName 組織名
      * ＠Param kengenKubun 権限区分
-     * ＠return ユーザーリスト
+     * ＠return 検索されたユーザーリスト（HyojiSearchオブジェクトのリスト）
      */
-//    public List<HyojiSearch> hyojiSearchUsers
-//        (
-//                String companyName,
-//                String soshikiName,
-//                Integer KengenKubun
-//        ) {
-//        return hyojiBtnMapper.hyojiSearchUsers(companyName, soshikiName, KengenKubun);
-//
-//    }
-    public List<HyojiSearch> hyojiSearchUsers(String companyName, String soshikiName, Integer kengenKubun) {
-        List<HyojiSearch> users = hyojiBtnMapper.hyojiSearchUsers(companyName, soshikiName, kengenKubun);
-        System.out.println("Service - Users: " + users); // 추가된 로그
-        return users;
+    public List<HyojiSearch> hyojiSearchUsers(
+        String companyNameSelected,
+        String soshikiNameSelected,
+        Integer kengenKubun
+    ) 
+    {
+        return hyojiBtnMapper.hyojiSearchUsers(
+            companyNameSelected, 
+            soshikiNameSelected, 
+            kengenKubun
+        );
     }
 
 }
