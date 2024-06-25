@@ -14,7 +14,7 @@ function searchCompanies() {
             name: name
         },
         success: function(data) {
-            var select = document.getElementById('companySelect');
+            var select = document.getElementById('companyNameOutput');
             select.innerHTML = '<option value="">検索結果確認!</option>';
             data.forEach(function(company){
                 var option = document.createElement('option');

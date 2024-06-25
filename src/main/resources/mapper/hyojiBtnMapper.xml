@@ -12,20 +12,16 @@
         <!--HyojiBtnMapper.javaのメソッドについてSQLクエリ定義
         会社名、組織名、権限区分を条件にしてユーザーリストを取得
         そして、LeftJoinを使用して、関連会社名、組織名を取得する-->
-<!--        SELECT-->
-<!--            u.USER_ID, u.name, u.KENGEN_KUBUN, k.KAISYA_NAME_JPN as company_name, t.SOSHIKI_NAME_JPN as organization_name-->
-<!--            FROM USER u-->
-<!--            LEFT JOIN KAISYA_MST k ON u.KAISYA_CODE = k.KAISYA_CODE-->
-<!--            LEFT JOIN TAISYO_SOSHIKI t ON u.SOSHIKI_CODE = t.SOSHIKI_CODE-->
-<!--        WHERE-->
-<!--            (#{companyName} IS NULL OR k.KAISYA_NAME_JPN = #{companyName})-->
-<!--            AND (#{soshikiName} IS NULL OR t.SOSHIKI_NAME_JPN = #{soshikiName})-->
-<!--            AND (#{kengenKubun} IS NULL OR u.KENGEN_KUBUN = #{kengenKubun})-->
-        SELECT
-            u.USER_ID, u.name, u.KENGEN_KUBUN, k.KAISYA_NAME_JPN as company_name, t.SOSHIKI_NAME_JPN as organization_name
-            FROM USER u
-            LEFT JOIN KAISYA_MST k ON u.KAISYA_CODE = k.KAISYA_CODE
-            LEFT JOIN TAISYO_SOSHIKI t ON u.SOSHIKI_CODE = t.SOSHIKI_CODE
-        <!--WHERE추가해서 하나하나씩 넣어가면서 디버깅 해보자. 오늘 종료 -->
+    SELECT
+        u.USER_ID, u.name, u.KENGEN_KUBUN, k.KAISYA_NAME_JPN as company_name, t.SOSHIKI_NAME_JPN as organization_name
+        FROM USER u
+        LEFT JOIN KAISYA_MST k ON u.KAISYA_CODE = k.KAISYA_CODE
+        LEFT JOIN TAISYO_SOSHIKI t ON u.SOSHIKI_CODE = t.SOSHIKI_CODE
+    WHERE
+        (#{companyName} IS NULL OR #{companyName} = '' OR k.KAISYA_NAME_JPN = #{companyName})
+        AND (#{soshikiName} IS NULL OR #{soshikiName} = '' OR t.SOSHIKI_NAME_JPN = #{soshikiName})
+        AND (#{kengenKubun} IS NULL OR u.KENGEN_KUBUN = #{kengenKubun}) 
+        <!-- 문제는 이 쿼리 로직이군... 내일 다시  -->
+
     </select>
 </mapper>

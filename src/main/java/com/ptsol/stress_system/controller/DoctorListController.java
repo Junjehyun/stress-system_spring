@@ -83,9 +83,12 @@ public class DoctorListController {
     @GetMapping("/hyoji-search")
     public String hyojiSearch(
             Model model,
-            @RequestParam(required = false) String companyName,
-            @RequestParam(required = false) String soshikiName,
-            @RequestParam(required = false) Integer kengenKubun) {
+            @RequestParam(name = "companyNameOutput", required = false) String companyName,
+            @RequestParam(name = "soshikiNameOutput", required = false) String soshikiName,
+            @RequestParam(name = "kengenKubun", required = false) Integer kengenKubun) {
+                System.out.println("companyNameOutput: " + companyName);
+                System.out.println("soshikiNameOutput: " + soshikiName);
+                System.out.println("kengenKubun: " + kengenKubun);
         List<HyojiSearch> users = hyojiBtnService.hyojiSearchUsers(companyName, soshikiName, kengenKubun);
         System.out.println("hyojiSearch method called");
         model.addAttribute("users", users);

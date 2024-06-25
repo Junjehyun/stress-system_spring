@@ -14,7 +14,7 @@ function searchSoshikis() {
             soshikiName: soshikiName
         },
         success: function(data) {
-            var select = document.getElementById('soshikiSelect');
+            var select = document.getElementById('soshikiNameOutput');
             select.innerHTML = '<option value="">検索結果確認!</option>';
             data.forEach(function(soshiki){
                 var option = document.createElement('option');
