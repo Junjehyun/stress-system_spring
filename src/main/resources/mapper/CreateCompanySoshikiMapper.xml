@@ -6,20 +6,22 @@
     KAISYA_MSTテーブルから会社名を取得するSQLクエリ
     このSQLクエリは、KAISYA_NAME_JPNカラムから会社名を取得するため
     -->
-    <select id="getCompanyNames" resultType="String">
-        SELECT 
-            KAISYA_NAME_JPN 
-        FROM 
-            KAISYA_MST
+    <select id="getCompanyNames" resultType="map">
+            SELECT 
+                KAISYA_CODE as Kcode, 
+                KAISYA_NAME_JPN as Kname 
+            FROM 
+                KAISYA_MST
     </select>
 
     <!--
     TAISYO_SOSHIKIテーブルから会社名を取得するSQLクエリ
     このSQLクエリは、SOSHIKI_NAME_JPNカラムから会社名を取得するため
     -->
-    <select id="getSoshikiNames" resultType="String">
+    <select id="getSoshikiNames" resultType="map">
         SELECT 
-            SOSHIKI_NAME_JPN 
+            SOSHIKI_CODE as Scode,
+            SOSHIKI_NAME_JPN as Sname
         FROM 
             TAISYO_SOSHIKI
     </select>
@@ -27,8 +29,37 @@
     <!-- userテーブルに新しいユーザーを挿入するSQLクエリ-->
     <insert id="createUser" parameterType="com.ptsol.stress_system.model.User">
         INSERT INTO 
-            user (userId, name, companyName, organizationName, kengenKubun)
+            user (USER_ID, name, KAISYA_CODE, SOSHIKI_CODE, KENGEN_KUBUN, TOROKU_DATE)
         VALUES 
-            (#{userId}, #{name}, #{companyName}, #{organizationName}, #{kengenKubun})
+            (#{userId}, #{name}, #{kaisyaCode}, #{soshikiCode}, #{kengenKubun}, CURRENT_TIMESTAMP)
     </insert>
+
+    <!-- LEFT JOINで取得するクエリ -->
+    <select id="getUsersWithCompanyAndOrganization" resultMap="UserResultMap">
+        SELECT 
+            u.USER_ID as userId, 
+            u.name, 
+            u.KAISYA_CODE as kaisyaCode, 
+            u.SOSHIKI_CODE as soshikiCode,
+            u.KENGEN_KUBUN as kengenKubun,  
+            hm.KAISYA_NAME_JPN as companyName,
+            ts.SOSHIKI_NAME_JPN as organizationName
+        FROM 
+            user u
+        LEFT JOIN 
+            kaisya_mst hm ON u.KAISYA_CODE = hm.KAISYA_CODE
+        LEFT JOIN 
+            taisyo_soshiki ts ON u.SOSHIKI_CODE = ts.SOSHIKI_CODE
+    </select>
+
+    <!-- ユーザーデータをマッピングするResultMap -->
+    <resultMap id="UserResultMap" type="com.ptsol.stress_system.model.User">
+        <result property="userId" column="USER_ID"/>
+        <result property="name" column="name"/>
+        <result property="kaisyaCode" column="KAISYA_CODE"/>
+        <result property="soshikiCode" column="SOSHIKI_CODE"/>
+        <result property="kengenKubun" column="KENGEN_KUBUN"/>
+        <result property="companyName" column="companyName"/>
+        <result property="organizationName" column="organizationName"/>
+    </resultMap>
 </mapper>

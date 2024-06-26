@@ -7,62 +7,64 @@
         <div layout:fragment="content" class="container" style="max-width: 72rem; padding-top: 2rem; padding-bottom: 2rem;">
             <h1 class="text-center text-3xl font-bold mb-4">新規産業医登録</h1>
             <div class="bg-light p-3 rounded shadow" style="gap: 12px; max-width: 70%; margin: 0 auto;">
-                <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
-                    <div class="mx-auto mt-3" style="width: 50%;">
-                        <div class="d-flex align-items-center justify-content-center mb-3">
-                            <div class="form-check form-check-inline">
-                                <label class="form-check-label text-black-50 fw-bold mb-2">社員ID</label>
-                                <input type="text" class="form-control" style="width: 200px;">
-                            </div> 
-                            <div class="form-check form-check-inline">
-                                <label class="form-check-label text-black-50 fw-bold mb-2">氏名</label>
-                                <input type="text" class="form-control" style="width: 200px;">
+                <form th:action="@{/doctor-create}" th:object="${user}" method="post">
+                    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
+                        <div class="mx-auto mt-3" style="width: 50%;">
+                            <div class="d-flex align-items-center justify-content-center mb-3">
+                                <div class="form-check form-check-inline">
+                                    <label class="form-check-label text-black-50 fw-bold mb-2">社員ID</label>
+                                    <input type="text" class="form-control" th:id="userId" th:name="userId" style="width: 200px;">
+                                </div> 
+                                <div class="form-check form-check-inline">
+                                    <label class="form-check-label text-black-50 fw-bold mb-2">氏名</label>
+                                    <input type="text" class="form-control" th:id="name" th:name="name" style="width: 200px;">
+                                </div>
                             </div>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-center mb-3">
-                            <div class="form-check form-check-inline">
-                                <label class="form-check-label text-black-50 fw-bold mb-2">
-                                    会社名
-                                </label>
-                                <select th:id="companyName" th:name="companyName" class="form-control" style="width: 200px;">
-                                    <option value="">会社名を選択</option>
-                                    <option th:each="companyName : ${companyNames}" th:value="${companyName}" th:text="${companyName}">
-                                    </option>
-                                </select>
+                            <div class="d-flex align-items-center justify-content-center mb-3">
+                                <div class="form-check form-check-inline">
+                                    <label class="form-check-label text-black-50 fw-bold mb-2">
+                                        会社名
+                                    </label>
+                                    <select th:id="kaisyaCode" th:name="kaisyaCode" class="form-control" style="width: 200px;">
+                                        <option value="">会社名を選択</option>
+                                        <option th:each="companyName : ${companyNames}" th:value="${companyName['Kcode']}" th:text="${companyName['Kname']}">
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <label class="form-check-label text-black-50 fw-bold mb-2">
+                                        組織名
+                                    </label>
+                                    <select th:id="soshikiCode" th:name="soshikiCode" class="form-control" style="width: 200px;">
+                                        <option value="">組織名を選択</option>
+                                        <option th:each="soshikiName : ${soshikiNames}" th:value="${soshikiName['Scode']}" th:text="${soshikiName['Sname']}">
+                                        </option>
+                                    </select>
+                                </div>
                             </div>
-                            <div class="form-check form-check-inline">
-                                <label class="form-check-label text-black-50 fw-bold mb-2">
-                                    組織名
-                                </label>
-                                <select th:id="soshikiName" th:name="soshikiName" class="form-control" style="width: 200px;">
-                                    <option value="">組織名を選択</option>
-                                    <option th:each="soshikiName : ${soshikiNames}" th:value="${soshikiName}" th:text="${soshikiName}">
-                                    </option>
-                                </select>
+                            <div class="d-flex align-items-center justify-content-start mb-3">
+                                <div class="form-check form-check-inline" style="margin-left: -25px;">
+                                    <input th:id="kengenCheck" th:name="kengenCheck" value="1" type="checkbox" class="form-checkbox form-check-input">
+                                    <span class="form-check-label text-black-50 fw-bold">権限区分</span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-start mb-3">
-                            <div class="form-check form-check-inline" style="margin-left: -25px;">
-                                <input name="" type="checkbox" class="form-checkbox form-check-input">
-                                <span class="form-check-label text-black-50 fw-bold">権限区分</span>
+                            <div class="d-flex align-items-center justify-content-start mb-3" style="margin-left: -25px;">
+                                <div class="form-check form-check-inline" style="margin-right: 5px;">
+                                    <input th:id="kengenKubun" th:name="kengenKubun" value="1" type="radio" class="form-check-input">
+                                    <label class="form-check-label text-black-50 fw-bold">全社</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input th:id="kengenKubun" th:name="kengenKubun" value="2" type="radio" class="form-check-input">
+                                    <label class="form-check-label text-black-50 fw-bold">自社</label>
+                                </div>
                             </div>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-start mb-3" style="margin-left: -25px;">
-                            <div class="form-check form-check-inline" style="margin-right: 5px;">
-                                <input type="radio" class="form-check-input">
-                                <label class="form-check-label text-black-50 fw-bold">全社</label>
+                            <div class="d-flex align-items-center justify-content-center">
+                                <button type="submit" class="btn btn-outline-primary fw-bold" style="margin-right: 10px;">確定</button>
+                                <button type="button" class="btn btn-outline-dark fw-bold" id="backToListBtn">戻る</button>
                             </div>
-                            <div class="form-check form-check-inline">
-                                <input type="radio" class="form-check-input">
-                                <label class="form-check-label text-black-50 fw-bold">自社</label>
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-center">
-                            <button type="button" class="btn btn-outline-primary fw-bold" style="margin-right: 10px;">確定</button>
-                            <button type="button" class="btn btn-outline-dark fw-bold" id="backToListBtn">戻る</button>
                         </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
         <script th:src="@{js/backToListBtn.js}"></script>

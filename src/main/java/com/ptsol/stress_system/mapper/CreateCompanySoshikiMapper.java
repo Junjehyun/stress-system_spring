@@ -1,5 +1,6 @@
 package com.ptsol.stress_system.mapper;
 
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import com.ptsol.stress_system.model.User;
 import java.util.List;
@@ -27,5 +28,7 @@ public interface CreateCompanySoshikiMapper {
      * @param user Userオブジェクト。
      * UserオブジェクトにはuserId、name、companyName、organizationName、kengenKubunのフィールドが含まれる。
      */
-    void CreateUser(User user);
+    void createUser(User user);
+
+    List<User> getUsersWithCompanyAndOrganization();
 }

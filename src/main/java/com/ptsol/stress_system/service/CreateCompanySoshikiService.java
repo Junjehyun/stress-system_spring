@@ -48,10 +48,10 @@ public class CreateCompanySoshikiService {
      * UserオブジェクトにはuserId、name、companyName、organizationName、kengenKubunのフィールドが含まれる。
      */
     public void CreateUser(User user) {
-        createCompanySoshikiMapper.CreateUser(user);
+        createCompanySoshikiMapper.createUser(user);
     }
 
-    
-
-
+    public List<User> getUsersWithCompanyAndOrganization() {
+        return createCompanySoshikiMapper.getUsersWithCompanyAndOrganization();
+    }
 }
