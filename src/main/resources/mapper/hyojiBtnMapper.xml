@@ -15,11 +15,12 @@
         会社名、組織名、権限区分を条件にしてユーザーリストを取得
         そして、LeftJoinを使用して、関連会社名、組織名を取得する-->
             SELECT 
-                u.*, hm.KAISYA_NAME_JPN as company_name, 
-                ts.SOSHIKI_NAME_JPN as organization_name
-            FROM users u
-                LEFT JOIN haisya_msts hm ON u.KAISYA_CODE = hm.KAISYA_CODE
-                LEFT JOIN taisyo_soshikis ts ON u.SOSHIKI_CODE = ts.SOSHIKI_CODE
+                u.USER_ID as userId, u.name, u.KAISYA_CODE as kaisyaCode, u.SOSHIKI_CODE as soshikiCode, u.KENGEN_KUBUN as kengenKubun,
+                hm.KAISYA_NAME_JPN as companyName, 
+                ts.SOSHIKI_NAME_JPN as organizationName
+            FROM user u
+                LEFT JOIN kaisya_mst hm ON u.KAISYA_CODE = hm.KAISYA_CODE
+                LEFT JOIN taisyo_soshiki ts ON u.SOSHIKI_CODE = ts.SOSHIKI_CODE
         <where>
             <if test="companyNameSelected != null and companyNameSelected != ''">
                 AND u.KAISYA_CODE = #{companyNameSelected}

@@ -25,13 +25,13 @@ public class HyojiBtnService {
      * ＠Param kengenKubun 権限区分
      * ＠return 検索されたユーザーリスト（HyojiSearchオブジェクトのリスト）
      */
-    public List<HyojiSearch> hyojiSearchUsers(
+    public List<HyojiSearch> hyojiSearchUsers
+    (
         String companyNameSelected,
         String soshikiNameSelected,
         Integer kengenKubun
     ) 
-    {
-        return hyojiBtnMapper.hyojiSearchUsers(
+    {   return hyojiBtnMapper.hyojiSearchUsers(
             companyNameSelected, 
             soshikiNameSelected, 
             kengenKubun

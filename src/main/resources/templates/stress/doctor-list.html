@@ -12,43 +12,45 @@
                             <!--会社名-->
                             <div class="d-flex align-items-center justify-content-start mb-3">
                                 <div class="form-check form-check-inline">
-                                    <input type="checkbox" class="form-checkbox form-check-input">
+                                    <input type="checkbox" id="companyCheck" name="companyCheck" th:checked="${companyCheck}" class="form-checkbox form-check-input">
                                     <label class="form-check-label text-black-50 fw-bold">会社名</label>
                                 </div>
-                                <input th:field="*{companyNameInput}" type="text" class="form-control mx-2" placeholder="会社名を入力" style="width: 30%;">
+                                <input th:id="companyNameInput" th:name="companyNameInput" th:value="${companyNameInput}" type="text" class="form-control mx-2" placeholder="会社名を入力" style="width: 30%;">
                                 <button type="button" class="btn btn-outline-secondary fw-bold mx-2" onclick="searchCompanies()">
                                     検索
                                 </button>
-                                <select th:field="*{companyNameOutput}" class="form-select mx-2" style="width: 30%;">
+                                <select th:id="companyNameOutput" th:name="companyNameOutput" th:selected="${companyNameOutput}" class="form-select mx-2" style="width: 30%;">
                                     <option value="">会社名を選択</option>
+                                    <option th:each="company : ${companies}" th:value="${company.kaisyaCode}" th:text="${company.kaisyaNameJpn}" th:selected="${company.kaisyaCode == companyNameOutput}"></option>
                                 </select>
                             </div>
                             <div class="d-flex align-items-center justify-content-start mb-3">
-                                <div class="form-check form-check-inline">
-                                    <input type="checkbox" class="form-checkbox form-check-input">
+                                <div class="form-check form-check-inline"> 
+                                    <input type="checkbox" id="soshikiCheck" name="soshikiCheck" th:checked="${soshikiCheck}" class="form-checkbox form-check-input">
                                     <label class="form-check-label text-black-50 fw-bold">組織名</label>
                                 </div>
-                                <input th:field="*{soshikiNameInput}" type="text" class="form-control mx-2" placeholder="組織名を入力" style="width: 30%;">
+                                <input th:id="soshikiNameInput" th:name="soshikiNameInput" th:value="${soshikiNameInput}" type="text" class="form-control mx-2" placeholder="組織名を入力" style="width: 30%;">
                                 <button type="button" class="btn btn-outline-secondary fw-bold mx-2" onclick="searchSoshikis()">
                                     検索
                                 </button>
-                                <select th:field="*{soshikiNameOutput}" class="form-select mx-2" style="width: 30%;">
+                                <select th:id="soshikiNameOutput" th:name="soshikiNameOutput" class="form-select mx-2" style="width: 30%;">
                                     <option value="">組織名を選択</option>
+                                    <option th:each="soshiki : ${soshikis}" th:value="${soshiki.soshikiCode}" th:text="${soshiki.soshikiNameJpn}" th:selected="${soshiki.soshikiCode == soshikiNameOutput}"></option>
                                 </select>
                             </div>
                             <!--権限区分-->
                             <div class="mt-4">
                                 <div class="form-check form-check-inline">
-                                    <input type="checkbox" class="form-checkbox form-check-input">
+                                    <input name="kengenCheck" type="checkbox" class="form-checkbox form-check-input" th:checked="${kengenCheck}">
                                     <span class="form-check-label text-black-50 fw-bold">権限区分</span>
                                 </div>
                                 <div class="mt-2">
                                     <div class="form-check form-check-inline" style="margin-right: 5px;">
-                                        <input type="radio" class="form-check-input" name="kengenKubun" value="1">
+                                        <input type="radio" class="form-check-input" name="kengenKubun" value="1" th:checked="${kengenKubun == 1}">
                                         <label class="form-check-label text-black-50 fw-bold">全社</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input type="radio" class="form-check-input" name="kengenKubun" value="2">
+                                        <input type="radio" class="form-check-input" name="kengenKubun" value="2" th:checked="${kengenKubun == 2}">
                                         <label class="form-check-label text-black-50 fw-bold">自社</label>
                                     </div>
                                 </div>
@@ -59,7 +61,7 @@
                         <button type="submit" class="btn btn-outline-secondary fw-bold" style="margin-right: 5px;">
                             表示する
                         </button>
-                        <button type="button" class="btn btn-outline-success fw-bold">
+                        <button type="button" class="btn btn-outline-success fw-bold" id="moveCreateBtn">
                             追加する
                         </button>
                     </div>
@@ -100,5 +102,6 @@
         </div>
         <script th:src="@{/js/searchCompany.js}"></script>
         <script th:src="@{/js/searchSoshiki.js}"></script>
+        <script th:src="@{js/moveCreateBtn.js}"></script>
     </body>
 </html>

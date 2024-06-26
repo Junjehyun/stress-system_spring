@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ptsol.stress_system.mapper.CreateCompanySoshikiMapper">
+    <!--
+    KAISYA_MSTテーブルから会社名を取得するSQLクエリ
+    このSQLクエリは、KAISYA_NAME_JPNカラムから会社名を取得するため
+    -->
+    <select id="getCompanyNames" resultType="String">
+        SELECT 
+            KAISYA_NAME_JPN 
+        FROM 
+            KAISYA_MST
+    </select>
+
+    <!--
+    TAISYO_SOSHIKIテーブルから会社名を取得するSQLクエリ
+    このSQLクエリは、SOSHIKI_NAME_JPNカラムから会社名を取得するため
+    -->
+    <select id="getSoshikiNames" resultType="String">
+        SELECT 
+            SOSHIKI_NAME_JPN 
+        FROM 
+            TAISYO_SOSHIKI
+    </select>
+
+    <!-- userテーブルに新しいユーザーを挿入するSQLクエリ-->
+    <insert id="createUser" parameterType="com.ptsol.stress_system.model.User">
+        INSERT INTO 
+            user (userId, name, companyName, organizationName, kengenKubun)
+        VALUES 
+            (#{userId}, #{name}, #{companyName}, #{organizationName}, #{kengenKubun})
+    </insert>
+</mapper>

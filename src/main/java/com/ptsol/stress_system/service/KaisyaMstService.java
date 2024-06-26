@@ -14,12 +14,16 @@ import java.util.List;
 @Service
 public class KaisyaMstService {
     private final KaisyaMstMapper kaisyaMstMapper;
+    
     @Autowired
     public KaisyaMstService(KaisyaMstMapper kaisyaMstMapper) {
         this.kaisyaMstMapper = kaisyaMstMapper;
     }
 
-    public List<KaisyaMstMapper> getAllKaisyaMst() {
+    // public List<KaisyaMstMapper> getAllKaisyaMst() {
+    //     return kaisyaMstMapper.findAll();
+    // }
+    public List<KaisyaMst> getAllKaisyaMst() {
         return kaisyaMstMapper.findAll();
     }
 

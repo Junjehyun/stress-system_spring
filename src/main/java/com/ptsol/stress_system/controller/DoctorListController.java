@@ -12,12 +12,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.ptsol.stress_system.service.KaisyaMstService;
 
-import javax.naming.directory.SearchResult;
 import java.util.List;
 
 @Controller
@@ -61,12 +59,24 @@ public class DoctorListController {
         return "stress/doctor-list";
     }
 
+    /**
+     * Ajaxで会社名検索を行うメソッド
+     * 
+     * @param name
+     * @return
+     */
     @GetMapping("/company-search")
     @ResponseBody
     public List<KaisyaMst> companySearch(@RequestParam("name") String name) {
         return kaisyaMstService.searchCompaniesByName(name);
     }
 
+    /**
+     * Ajaxで組織名検索を行うメソッド
+     * 
+     * @param soshikiName
+     * @return
+     */
     @GetMapping("/soshiki-search")
     @ResponseBody
     public List<TaisyoSoshiki> soshikiSearch(@RequestParam("soshikiName") String soshikiName) {
@@ -83,13 +93,34 @@ public class DoctorListController {
      */
     @PostMapping("/hyoji-search")
     public String hyojiSearch(
-            @RequestParam(name = "companyNameOutput", required = false) String companyName,
-            @RequestParam(name = "soshikiNameOutput", required = false) String soshikiName,
+            @RequestParam(name = "companyNameInput", required = false) String companyNameInput,
+            @RequestParam(name = "companyNameOutput", required = false) String companyNameOutput,
+            @RequestParam(name = "soshikiNameInput", required = false) String soshikiNameInput,
+            @RequestParam(name = "soshikiNameOutput", required = false) String soshikiNameOutput,
             @RequestParam(name = "kengenKubun", required = false) Integer kengenKubun,
+            @RequestParam(name = "companyCheck", required = false) Boolean companyCheck,
+            @RequestParam(name = "soshikiCheck", required = false) Boolean soshikiCheck,
+            @RequestParam(name = "kengenCheck", required = false) Boolean kengenCheck,
             Model model) {
 
-            List<HyojiSearch> users = hyojiBtnService.hyojiSearchUsers(companyName, soshikiName, kengenKubun);
-            model.addAttribute("users", users);
-            return "stress/doctor-list";
-        }
+        List<HyojiSearch> users = hyojiBtnService.hyojiSearchUsers(companyNameOutput, soshikiNameOutput, kengenKubun);
+
+        model.addAttribute("companyNameInput", companyNameInput);
+        model.addAttribute("companyNameOutput", companyNameOutput);
+        model.addAttribute("soshikiNameInput", soshikiNameInput);
+        model.addAttribute("soshikiNameOutput", soshikiNameOutput);
+        model.addAttribute("kengenKubun", kengenKubun);
+        model.addAttribute("users", users);
+        model.addAttribute("companyCheck", companyCheck);
+        model.addAttribute("soshikiCheck", soshikiCheck);
+        model.addAttribute("kengenCheck", kengenCheck);
+
+        List<KaisyaMst> companies = kaisyaMstService.searchCompaniesByName(companyNameInput);
+        model.addAttribute("companies", companies);
+
+        List<TaisyoSoshiki> soshikis = taisyoSoshikiService.searchSoshikiByName(soshikiNameInput);
+        model.addAttribute("soshikis", soshikis);
+
+        return "stress/doctor-list";
+    }
 }

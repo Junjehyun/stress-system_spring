@@ -15,6 +15,7 @@ public class TaisyoSoshikiService {
     public TaisyoSoshikiService(TaisyoSoshikiMapper taisyoSoshikiMapper) {
         this.taisyoSoshikiMapper = taisyoSoshikiMapper;
     }
+    
     public List<TaisyoSoshikiMapper> getAllTaisyoSoshiki() {
         return taisyoSoshikiMapper.findAll();
     }
