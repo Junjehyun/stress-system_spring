@@ -49,12 +49,20 @@ public class DoctorListController {
     /**
      * LeftJoinまでして結果を表示する。
      * @param model
+     * @param companyCheck
      * @return
      */
     @GetMapping("/doctor-list")
-    public String doctorList(Model model) {
+    public String doctorList(@RequestParam(name = "companyCheck", required = false) Boolean companyCheck,
+                            @RequestParam(name = "companyNameInput", required = false) String companyNameInput,
+                            @RequestParam(name = "companyNameOutput", required = false) String companyNameOutput,
+                            Model model) {
         //List<User> users = userService.getAllUsers();
         List<User> users = userService.getAllUsersWithDetails();
+
+        model.addAttribute("companyCheck", companyCheck);
+        model.addAttribute("companyNameInput", companyNameInput);
+        model.addAttribute("companyNameOutput", companyNameOutput);
         model.addAttribute("users", users);
         return "stress/doctor-list";
     }

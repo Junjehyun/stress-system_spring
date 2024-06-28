@@ -13,9 +13,13 @@
                             <div class="d-flex align-items-center justify-content-start mb-3">
                                 <div class="form-check form-check-inline">
                                     <input type="checkbox" id="companyCheck" name="companyCheck" th:checked="${companyCheck}" class="form-checkbox form-check-input">
+                                    <!--Hidden CompanyCheck Tag-->
+                                    <input type="hidden" id="hiddenCompanyCheck" name="hiddenCompanyCheck" th:value="${companyCheck == true ? 'true' : 'false'}">
                                     <label class="form-check-label text-black-50 fw-bold">会社名</label>
                                 </div>
                                 <input th:id="companyNameInput" th:name="companyNameInput" th:value="${companyNameInput}" type="text" class="form-control mx-2" placeholder="会社名を入力" style="width: 30%;">
+                                <!--Hidden CompanyNameInput Tag-->
+                                <input type="hidden" id="hiddenCompanyNameInput" name="hiddenCompanyNameInput" th:value="${companyNameInput}">
                                 <button type="button" class="btn btn-outline-secondary fw-bold mx-2" onclick="searchCompanies()">
                                     検索
                                 </button>
@@ -23,6 +27,8 @@
                                     <option value="">会社名を選択</option>
                                     <option th:each="company : ${companies}" th:value="${company.kaisyaCode}" th:text="${company.kaisyaNameJpn}" th:selected="${company.kaisyaCode == companyNameOutput}"></option>
                                 </select>
+                                <!--Hidden CompanyNameOutput Tag-->
+                                <input type="hidden" id="hiddenCompanyNameOutput" name="hiddenCompanyNameOutput" th:value="${companyNameOutput}">
                             </div>
                             <div class="d-flex align-items-center justify-content-start mb-3">
                                 <div class="form-check form-check-inline"> 
@@ -37,6 +43,8 @@
                                     <option value="">組織名を選択</option>
                                     <option th:each="soshiki : ${soshikis}" th:value="${soshiki.soshikiCode}" th:text="${soshiki.soshikiNameJpn}" th:selected="${soshiki.soshikiCode == soshikiNameOutput}"></option>
                                 </select>
+                                <!--Hidden SoshikiNameOutput Tag-->
+                                <input type="hidden" id="hiddenSoshikiNameOutput" name="hiddenSoshikiNameOutput" th:value="${soshikiNameOutput}">
                             </div>
                             <!--権限区分-->
                             <div class="mt-4">
@@ -92,7 +100,7 @@
                             <span class="fw-bold text-black-50" th:case="2">自社</span>
                         </td>
                         <td>
-                            <button class="btn btn-outline-info fw-bold">変更</button>
+                            <button id="moveUpdateBtn" class="btn btn-outline-info fw-bold">変更</button>
                             <button class="btn btn-outline-danger fw-bold">削除</button>
                         </td>
                     </tr>
@@ -103,5 +111,6 @@
         <script th:src="@{/js/searchCompany.js}"></script>
         <script th:src="@{/js/searchSoshiki.js}"></script>
         <script th:src="@{js/moveCreateBtn.js}"></script>
+        <script th:src="@{js/moveUpdateBtn.js}"></script>
     </body>
 </html>

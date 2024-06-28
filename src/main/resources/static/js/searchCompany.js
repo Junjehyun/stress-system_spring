@@ -22,6 +22,8 @@ function searchCompanies() {
                 option.text = company.kaisyaNameJpn;
                 select.appendChild(option);
             });
+        document.getElementById('hiddenCompanyNameOutput').value = select.value;
+
         }
     });
 }
