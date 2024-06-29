@@ -54,14 +54,20 @@ public class DoctorListController {
      */
     @GetMapping("/doctor-list")
     public String doctorList(@RequestParam(name = "companyCheck", required = false) Boolean companyCheck,
+                            @RequestParam(name = "soshikiCheck", required = false) Boolean soshikiCheck,
+                            @RequestParam(name = "kengenCheck", required = false) Boolean kengenCheck,
                             @RequestParam(name = "companyNameInput", required = false) String companyNameInput,
+                            @RequestParam(name = "soshikiNameInput", required = false) String soshikiNameINput,
                             @RequestParam(name = "companyNameOutput", required = false) String companyNameOutput,
                             Model model) {
         //List<User> users = userService.getAllUsers();
         List<User> users = userService.getAllUsersWithDetails();
 
         model.addAttribute("companyCheck", companyCheck);
+        model.addAttribute("soshikiCheck", soshikiCheck);
+        model.addAttribute("kengenCheck", kengenCheck);
         model.addAttribute("companyNameInput", companyNameInput);
+        model.addAttribute("soshikiNameInput", soshikiNameINput);
         model.addAttribute("companyNameOutput", companyNameOutput);
         model.addAttribute("users", users);
         return "stress/doctor-list";

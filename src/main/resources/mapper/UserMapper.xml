@@ -26,4 +26,8 @@
         LEFT JOIN TAISYO_SOSHIKI t ON u.SOSHIKI_CODE = t.SOSHIKI_CODE
     </select>
 
+    <select id="getUserById" resultType="com.ptsol.stress_system.model.User">
+        SELECT * FROM USER WHERE USER_ID = #{userId}
+    </select>
+
 </mapper>

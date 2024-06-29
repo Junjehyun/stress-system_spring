@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ptsol.stress_system.mapper.UpdateUserMapper">
+    <select id="getUserById" resultType="com.ptsol.stress_system.model.User">
+        SELECT 
+            u.USER_ID as userId,
+            u.name,
+            k.KAISYA_NAME_JPN as companyName,
+            s.SOSHIKI_NAME_JPN as organizationName,
+            u.KENGEN_KUBUN as kengenKubun
+        FROM 
+            User u
+        LEFT JOIN 
+            kaisya_mst k ON u.KAISYA_CODE = k.KAISYA_CODE
+        LEFT JOIN 
+            taisyo_soshiki s ON u.SOSHIKI_CODE = s.SOSHIKI_CODE
+        WHERE 
+            u.USER_ID = #{userId}
+    </select>
+</mapper>

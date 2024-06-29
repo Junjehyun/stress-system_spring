@@ -1,5 +1,7 @@
 $(document).ready(function() {
-    $("#moveUpdateBtn").click(function(){
-        window.location.href = "/doctor-edit";
-    }); 
+    $(".moveUpdateBtn").click(function() {
+        var userId = $(this).data("userid");
+
+        window.location.href = "/doctor-edit/" + userId;
+    });
 });

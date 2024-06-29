@@ -65,16 +65,15 @@
                         </div>
                     </div>
                     <input type="text" name="hiddenCompanyCheck" th:value="${param.hiddenCompanyCheck}">
+                    <input type="text" name="hiddenSoshikiCheck" th:value="${param.hiddenSoshikiCheck}">
+                    <input type="text" name="hiddenKengenCheck" th:value="${param.hiddenKengenCheck}">
                     <input type="text" name="hiddenCompanyNameInput" th:value="${param.hiddenCompanyNameInput}">
+                    <input type="text" name="hiddenSoshikiNameInput" th:value="${param.hiddenSoshikiNameInput}">
                     <input type="text" name="hiddenCompanyNameOutput" th:value="${param.hiddenCompanyNameOutput}">
+                    <input type="hidden" name="hiddenKengenKubun" th:value="${param.hiddenKengenKubun}">
+                    <input type="radio" class="form-check-input" id="kengenKubun1" name="kengenKubun" value="1">
+                    <input type="radio" class="form-check-input" id="kengenKubun2" name="kengenKubun" value="2">
                 </form>
-                <select th:id="companyNameOutput" th:name="companyNameOutput" class="form-select mx-2" style="width: 30%;" th:value="${param.hiddenCompanyNameOutput}">
-                    <option value="">会社名を選択</option>
-                    <option th:each="company : ${companyNames}" th:value="${company.kaisyaCode}" th:text="${company.kaisyaNameJpn}"></option>
-                    <!-- <option th:each="company : ${companyNames}" th:value="${company.kaisyaCode}" th:text="${company.kaisyaNameJpn}"></option> -->
-                    <!-- <option th:each="company : ${companyNames}" th:value="${company['KAISYA_CODE']}" th:text="${company['KAISYA_NAME_JPN']}" th:selected="${company['KAISYA_CODE'] == param.hiddenCompanyNameOutput}"></option> -->
-                    <!-- <option th:each="company : ${companyNames}" th:value="${company['KAISYA_CODE']}" th:text="${company['KAISYA_NAME_JPN']}"></option> -->
-                </select>
             </div>
         </div>
         <script th:src="@{js/backToListBtn.js}"></script>

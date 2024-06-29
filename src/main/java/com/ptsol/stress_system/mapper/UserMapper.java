@@ -13,4 +13,6 @@ public interface UserMapper {
     List<User> findAll();
 
     List<User> findAllWithDetails();
+
+    User findById(String userId);
 }

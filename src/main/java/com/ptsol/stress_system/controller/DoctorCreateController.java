@@ -21,8 +21,12 @@ public class DoctorCreateController {
 
     @GetMapping("/doctor-create")
     public String main(@RequestParam(name = "hiddenCompanyCheck", required = false, defaultValue = "false") String hiddenCompanyCheck,
+                        @RequestParam(name = "hiddenSoshikiCheck", required = false, defaultValue = "false") String hiddenSoshikiCheck,
+                        @RequestParam(name = "hiddenKengenCheck", required = false, defaultValue = "false") String hiddenKengenCheck,
                         @RequestParam(name = "hiddenCompanyNameInput", required = false) String hiddenCompanyNameInput,
+                        @RequestParam(name = "hiddenSoshikiNameINput", required = false) String hiddenSoshikiNameInput,
                         @RequestParam(name = "hiddenCompanyNameOutput", required = false) String hiddenCompanyNameOutput,
+                        @RequestParam(name = "hiddenKengenKubun", required = false) String hiddenKengenKubun,
                         Model model) {
 
         Boolean companyCheck = Boolean.parseBoolean(hiddenCompanyCheck);
@@ -32,9 +36,12 @@ public class DoctorCreateController {
         model.addAttribute("user", new User());
 
         model.addAttribute("hiddenCompanyCheck", companyCheck);
+        model.addAttribute("hiddenSoshikiCheck", hiddenSoshikiCheck);
+        model.addAttribute("hiddenKengenCheck", hiddenKengenCheck);
         model.addAttribute("companyNameInput", hiddenCompanyNameInput);
+        model.addAttribute("soshikiNameInput", hiddenSoshikiNameInput);
         model.addAttribute("companyNameOutput", hiddenCompanyNameOutput);
-
+        model.addAttribute("hiddenKengenKubun", hiddenKengenKubun);
         return "/stress/doctor-create";
     }
 

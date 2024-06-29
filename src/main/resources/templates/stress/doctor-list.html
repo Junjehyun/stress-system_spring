@@ -33,9 +33,13 @@
                             <div class="d-flex align-items-center justify-content-start mb-3">
                                 <div class="form-check form-check-inline"> 
                                     <input type="checkbox" id="soshikiCheck" name="soshikiCheck" th:checked="${soshikiCheck}" class="form-checkbox form-check-input">
+                                    <!--Hidden SoshikiCheck Tag-->
+                                    <input type="hidden" id="hiddenSoshikiCheck" name="hiddenSoshikiCheck" th:value="${soshikiCheck == true ? 'true' : 'false'}">
                                     <label class="form-check-label text-black-50 fw-bold">組織名</label>
                                 </div>
                                 <input th:id="soshikiNameInput" th:name="soshikiNameInput" th:value="${soshikiNameInput}" type="text" class="form-control mx-2" placeholder="組織名を入力" style="width: 30%;">
+                                <!--Hidden SoshikiNameInput Tag-->
+                                <input type="hidden" id="hiddenSoshikiNameInput" name="hiddenSoshikiNameInput" th:value="${soshikiNameInput}">
                                 <button type="button" class="btn btn-outline-secondary fw-bold mx-2" onclick="searchSoshikis()">
                                     検索
                                 </button>
@@ -49,16 +53,18 @@
                             <!--権限区分-->
                             <div class="mt-4">
                                 <div class="form-check form-check-inline">
-                                    <input name="kengenCheck" type="checkbox" class="form-checkbox form-check-input" th:checked="${kengenCheck}">
+                                    <input id="kengenCheck" name="kengenCheck" type="checkbox" class="form-checkbox form-check-input" th:checked="${kengenCheck}">
+                                    <!--Hidden KengenCheck Tag-->
+                                    <input type="hidden" id="hiddenKengenCheck" name="hiddenKengenCheck" th:value="${kengenCheck == true ? 'true' : 'false'}">
                                     <span class="form-check-label text-black-50 fw-bold">権限区分</span>
                                 </div>
                                 <div class="mt-2">
                                     <div class="form-check form-check-inline" style="margin-right: 5px;">
-                                        <input type="radio" class="form-check-input" name="kengenKubun" value="1" th:checked="${kengenKubun == 1}">
+                                        <input type="radio" class="form-check-input" id="kengenKubun1" name="kengenKubun" value="1" th:checked="${kengenKubun == 1}">
                                         <label class="form-check-label text-black-50 fw-bold">全社</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input type="radio" class="form-check-input" name="kengenKubun" value="2" th:checked="${kengenKubun == 2}">
+                                        <input type="radio" class="form-check-input" id="kengenKubun2" name="kengenKubun" value="2" th:checked="${kengenKubun == 2}">
                                         <label class="form-check-label text-black-50 fw-bold">自社</label>
                                     </div>
                                 </div>
@@ -100,7 +106,9 @@
                             <span class="fw-bold text-black-50" th:case="2">自社</span>
                         </td>
                         <td>
-                            <button id="moveUpdateBtn" class="btn btn-outline-info fw-bold">変更</button>
+                            <button type="button" class="btn btn-outline-info fw-bold moveUpdateBtn" th:attr="data-userid=${user.userId}">
+                                変更
+                            </button>
                             <button class="btn btn-outline-danger fw-bold">削除</button>
                         </td>
                     </tr>
