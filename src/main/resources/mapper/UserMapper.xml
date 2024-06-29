@@ -4,6 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.ptsol.stress_system.mapper.UserMapper">
+
     <resultMap id="UserResultMap" type="com.ptsol.stress_system.model.User">
         <result property="userId" column="USER_ID"/>
         <result property="name" column="name"/>
@@ -11,6 +12,7 @@
         <result property="companyName" column="company_name" />
         <result property="organizationName" column="organization_name" />
     </resultMap>
+
     <select id="findAll" resultType="com.ptsol.stress_system.model.User">
         SELECT
             USER_ID as userId,
@@ -30,4 +32,11 @@
         SELECT * FROM USER WHERE USER_ID = #{userId}
     </select>
 
+    <delete id="deleteUser" parameterType="string">
+        DELETE
+        FROM 
+            USER
+        WHERE
+            USER_ID = #{userId}
+    </delete>
 </mapper>

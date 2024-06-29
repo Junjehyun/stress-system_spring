@@ -14,10 +14,12 @@
                                 <div class="form-check form-check-inline">
                                     <label class="form-check-label text-black-50 fw-bold mb-2">社員ID</label>
                                     <input type="text" class="form-control" th:id="userId" th:name="userId" style="width: 200px;">
+                                    <div th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}" class="text-danger"></div>
                                 </div> 
                                 <div class="form-check form-check-inline">
                                     <label class="form-check-label text-black-50 fw-bold mb-2">氏名</label>
                                     <input type="text" class="form-control" th:id="name" th:name="name" style="width: 200px;">
+                                    <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger"></div>
                                 </div>
                             </div>
                             <div class="d-flex align-items-center justify-content-center mb-3">
@@ -30,6 +32,7 @@
                                         <option th:each="companyName : ${companyNames}" th:value="${companyName['Kcode']}" th:text="${companyName['Kname']}">
                                         </option>
                                     </select>
+                                    <div th:if="${#fields.hasErrors('kaisyaCode')}" th:errors="*{kaisyaCode}" class="text-danger"></div>
                                 </div>
                                 <div class="form-check form-check-inline">
                                     <label class="form-check-label text-black-50 fw-bold mb-2">
@@ -40,6 +43,7 @@
                                         <option th:each="soshikiName : ${soshikiNames}" th:value="${soshikiName['Scode']}" th:text="${soshikiName['Sname']}">
                                         </option>
                                     </select>
+                                    <div th:if="${#fields.hasErrors('soshikiCode')}" th:errors="*{soshikiCode}" class="text-danger"></div>
                                 </div>
                             </div>
                             <div class="d-flex align-items-center justify-content-start mb-3">
@@ -57,6 +61,7 @@
                                     <input th:id="kengenKubun" th:name="kengenKubun" value="2" type="radio" class="form-check-input">
                                     <label class="form-check-label text-black-50 fw-bold">自社</label>
                                 </div>
+                                <div th:if="${#fields.hasErrors('kengenKubun')}" th:errors="*{kengenKubun}" class="text-danger"></div>
                             </div>
                             <div class="d-flex align-items-center justify-content-center">
                                 <button type="submit" class="btn btn-outline-primary fw-bold" style="margin-right: 10px;">確定</button>
@@ -67,12 +72,13 @@
                     <input type="text" name="hiddenCompanyCheck" th:value="${param.hiddenCompanyCheck}">
                     <input type="text" name="hiddenSoshikiCheck" th:value="${param.hiddenSoshikiCheck}">
                     <input type="text" name="hiddenKengenCheck" th:value="${param.hiddenKengenCheck}">
+
                     <input type="text" name="hiddenCompanyNameInput" th:value="${param.hiddenCompanyNameInput}">
                     <input type="text" name="hiddenSoshikiNameInput" th:value="${param.hiddenSoshikiNameInput}">
+                    
                     <input type="text" name="hiddenCompanyNameOutput" th:value="${param.hiddenCompanyNameOutput}">
-                    <input type="hidden" name="hiddenKengenKubun" th:value="${param.hiddenKengenKubun}">
-                    <input type="radio" class="form-check-input" id="kengenKubun1" name="kengenKubun" value="1">
-                    <input type="radio" class="form-check-input" id="kengenKubun2" name="kengenKubun" value="2">
+
+                    <input type="text" name="hiddenKengenKubun" th:value="${param.hiddenKengenKubun}">
                 </form>
             </div>
         </div>

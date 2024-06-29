@@ -20,4 +20,16 @@
         WHERE 
             u.USER_ID = #{userId}
     </select>
+
+    <update id="updateUser" parameterType="com.ptsol.stress_system.model.User">
+        UPDATE 
+            USER
+        SET
+            name = #{name},
+            companyName = #{companyName},
+            organizationName = #{organizationName},
+            kengenKubun = #{kengenKubun}
+        WHERE
+            userId = #{userId}
+    </update>
 </mapper>

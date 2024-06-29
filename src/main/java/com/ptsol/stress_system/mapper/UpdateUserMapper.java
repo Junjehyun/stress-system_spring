@@ -9,4 +9,6 @@ public interface UpdateUserMapper {
     
     User getUserById(@Param("userId") String userId);
     
+    //User updateUser(User user);
+    void updateUser(User user);
 }

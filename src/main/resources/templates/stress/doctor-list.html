@@ -23,12 +23,16 @@
                                 <button type="button" class="btn btn-outline-secondary fw-bold mx-2" onclick="searchCompanies()">
                                     検索
                                 </button>
-                                <select th:id="companyNameOutput" th:name="companyNameOutput" th:selected="${companyNameOutput}" class="form-select mx-2" style="width: 30%;">
+                                <!-- <select th:id="companyNameOutput" th:name="companyNameOutput" th:selected="${companyNameOutput}" class="form-select mx-2" style="width: 30%;">
+                                    <option value="">会社名を選択</option>
+                                    <option th:each="company : ${companies}" th:value="${company.kaisyaCode}" th:text="${company.kaisyaNameJpn}" th:selected="${company.kaisyaCode == companyNameOutput}"></option>
+                                </select> -->
+                                <select th:id="companyNameOutput" th:name="companyNameOutput" class="form-select mx-2" style="width: 30%;">
                                     <option value="">会社名を選択</option>
                                     <option th:each="company : ${companies}" th:value="${company.kaisyaCode}" th:text="${company.kaisyaNameJpn}" th:selected="${company.kaisyaCode == companyNameOutput}"></option>
                                 </select>
                                 <!--Hidden CompanyNameOutput Tag-->
-                                <input type="hidden" id="hiddenCompanyNameOutput" name="hiddenCompanyNameOutput" th:value="${companyNameOutput}">
+                                <input type="text" id="hiddenCompanyNameOutput" name="hiddenCompanyNameOutput" th:value="${companyNameOutput}">
                             </div>
                             <div class="d-flex align-items-center justify-content-start mb-3">
                                 <div class="form-check form-check-inline"> 
@@ -60,11 +64,11 @@
                                 </div>
                                 <div class="mt-2">
                                     <div class="form-check form-check-inline" style="margin-right: 5px;">
-                                        <input type="radio" class="form-check-input" id="kengenKubun1" name="kengenKubun" value="1" th:checked="${kengenKubun == 1}">
+                                        <input type="radio" class="form-check-input" id="kengenKubun1" name="kengenKubun" value="1" th:checked="${kengenKubun == '1'}">
                                         <label class="form-check-label text-black-50 fw-bold">全社</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input type="radio" class="form-check-input" id="kengenKubun2" name="kengenKubun" value="2" th:checked="${kengenKubun == 2}">
+                                        <input type="radio" class="form-check-input" id="kengenKubun2" name="kengenKubun" value="2" th:checked="${kengenKubun == '2'}">
                                         <label class="form-check-label text-black-50 fw-bold">自社</label>
                                     </div>
                                 </div>
@@ -84,34 +88,36 @@
             <div class="table-responsive mt-3">
                 <table class="table table-sm table-bordered table-hover text-center align-middle">
                     <thead>
-                    <tr class="table-light">
-                        <th scope="col">No.</th>
-                        <th scope="col">利用者ID</th>
-                        <th scope="col">氏名</th>
-                        <th scope="col">会社名</th>
-                        <th scope="col">組織名</th>
-                        <th scope="col">権限区分</th>
-                        <th scope="col">備考</th>
-                    </tr>
+                        <tr class="table-light">
+                            <th scope="col">No.</th>
+                            <th scope="col">利用者ID</th>
+                            <th scope="col">氏名</th>
+                            <th scope="col">会社名</th>
+                            <th scope="col">組織名</th>
+                            <th scope="col">権限区分</th>
+                            <th scope="col">備考</th>
+                        </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="user, iterStat : ${users}">
-                        <td class="fw-bold text-black-50" th:text="${iterStat.index + 1}"></td>
-                        <td class="fw-bold text-black-50" th:text="${user.userId}"></td>
-                        <td class="fw-bold text-black-50" th:text="${user.name}"></td>
-                        <td class="fw-bold text-black-50" th:text="${user.companyName}"></td>
-                        <td class="fw-bold text-black-50" th:text="${user.organizationName}"></td>
-                        <td class="fw-bold text-black-50" th:switch="${user.kengenKubun}">
-                            <span class="fw-bold text-black-50" th:case="1">全社</span>
-                            <span class="fw-bold text-black-50" th:case="2">自社</span>
-                        </td>
-                        <td>
-                            <button type="button" class="btn btn-outline-info fw-bold moveUpdateBtn" th:attr="data-userid=${user.userId}">
-                                変更
-                            </button>
-                            <button class="btn btn-outline-danger fw-bold">削除</button>
-                        </td>
-                    </tr>
+                        <tr th:each="user, iterStat : ${users}">
+                            <td class="fw-bold text-black-50" th:text="${iterStat.index + 1}"></td>
+                            <td class="fw-bold text-black-50" th:text="${user.userId}"></td>
+                            <td class="fw-bold text-black-50" th:text="${user.name}"></td>
+                            <td class="fw-bold text-black-50" th:text="${user.companyName}"></td>
+                            <td class="fw-bold text-black-50" th:text="${user.organizationName}"></td>
+                            <td class="fw-bold text-black-50" th:switch="${user.kengenKubun}">
+                                <span class="fw-bold text-black-50" th:case="1">全社</span>
+                                <span class="fw-bold text-black-50" th:case="2">自社</span>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-outline-info fw-bold moveUpdateBtn" th:attr="data-userid=${user.userId}">
+                                    変更
+                                </button>
+                                <button type="button" class="btn btn-outline-danger fw-bold deleteBtn" th:attr="data-id=${user.userId}">
+                                    削除
+                                </button>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -120,5 +126,6 @@
         <script th:src="@{/js/searchSoshiki.js}"></script>
         <script th:src="@{js/moveCreateBtn.js}"></script>
         <script th:src="@{js/moveUpdateBtn.js}"></script>
+        <script th:src="@{js/deleteBtn.js}"></script>
     </body>
 </html>

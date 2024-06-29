@@ -25,5 +25,5 @@ public interface HyojiBtnMapper {
     List<HyojiSearch> hyojiSearchUsers(
     @Param("companyNameSelected") String companyNameSelected,
     @Param("soshikiNameSelected") String soshikiNameSelected,
-    @Param("kengenKubun") Integer kengenKubun);
+    @Param("kengenKubun") String kengenKubun);
 }

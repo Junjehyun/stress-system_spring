@@ -47,7 +47,7 @@ public class CreateCompanySoshikiService {
      * @param user Userオブジェクト。 
      * UserオブジェクトにはuserId、name、companyName、organizationName、kengenKubunのフィールドが含まれる。
      */
-    public void CreateUser(User user) {
+    public void createUser(User user) {
         createCompanySoshikiMapper.createUser(user);
     }
 

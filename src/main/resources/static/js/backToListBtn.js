@@ -9,18 +9,13 @@ $(document).ready(function() {
         var hiddenCompanyNameOutputValue = $("input[name='hiddenCompanyNameOutput']").val();
         var hiddenKengenKubunValue = $("input[name='hiddenKengenKubun']").val();
 
-        if (hiddenKengenKubunValue === '1') {
-            $("#kengenKubun1").prop("checked", true);
-        } else if (hiddenKengenKubunValue === '2') {
-            $("#kengenKubun2").prop("checked", true);
-        }
-
         window.location.href = "/doctor-list?companyCheck=" + hiddenCompanyCheckValue + 
         "&soshikiCheck=" + hiddenSoshikiCheckValue +
         "&kengenCheck=" + hiddenKengenCheckValue +
         "&companyNameInput=" + encodeURIComponent(hiddenCompanyNameInputValue) +
         "&soshikiNameInput=" + encodeURIComponent(hiddenSoshikiNameInputValue) +
-        "&companyNameOutput=" + encodeURIComponent(hiddenCompanyNameOutputValue);
+        "&companyNameOutput=" + encodeURIComponent(hiddenCompanyNameOutputValue) +
+        "&kengenKubun=" + encodeURIComponent(hiddenKengenKubunValue);
 
     });
 });

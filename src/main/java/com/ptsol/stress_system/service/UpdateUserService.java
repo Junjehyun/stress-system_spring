@@ -15,4 +15,8 @@ public class UpdateUserService {
     public User getUserById(String userId) {
         return updateUserMapper.getUserById(userId);
     }
+
+    public void updateUser(User user) {
+        updateUserMapper.updateUser(user);
+    }
 }

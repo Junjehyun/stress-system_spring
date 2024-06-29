@@ -59,8 +59,9 @@ public class DoctorListController {
                             @RequestParam(name = "companyNameInput", required = false) String companyNameInput,
                             @RequestParam(name = "soshikiNameInput", required = false) String soshikiNameINput,
                             @RequestParam(name = "companyNameOutput", required = false) String companyNameOutput,
+                            @RequestParam(name = "kengenKubun", required = false) String kengenKubun,
                             Model model) {
-        //List<User> users = userService.getAllUsers();
+
         List<User> users = userService.getAllUsersWithDetails();
 
         model.addAttribute("companyCheck", companyCheck);
@@ -69,6 +70,7 @@ public class DoctorListController {
         model.addAttribute("companyNameInput", companyNameInput);
         model.addAttribute("soshikiNameInput", soshikiNameINput);
         model.addAttribute("companyNameOutput", companyNameOutput);
+        model.addAttribute("kengenKubun", kengenKubun);
         model.addAttribute("users", users);
         return "stress/doctor-list";
     }
@@ -111,10 +113,10 @@ public class DoctorListController {
             @RequestParam(name = "companyNameOutput", required = false) String companyNameOutput,
             @RequestParam(name = "soshikiNameInput", required = false) String soshikiNameInput,
             @RequestParam(name = "soshikiNameOutput", required = false) String soshikiNameOutput,
-            @RequestParam(name = "kengenKubun", required = false) Integer kengenKubun,
             @RequestParam(name = "companyCheck", required = false) Boolean companyCheck,
             @RequestParam(name = "soshikiCheck", required = false) Boolean soshikiCheck,
             @RequestParam(name = "kengenCheck", required = false) Boolean kengenCheck,
+            @RequestParam(name = "kengenKubun", required = false) String kengenKubun,
             Model model) {
 
         List<HyojiSearch> users = hyojiBtnService.hyojiSearchUsers(companyNameOutput, soshikiNameOutput, kengenKubun);
@@ -123,11 +125,11 @@ public class DoctorListController {
         model.addAttribute("companyNameOutput", companyNameOutput);
         model.addAttribute("soshikiNameInput", soshikiNameInput);
         model.addAttribute("soshikiNameOutput", soshikiNameOutput);
-        model.addAttribute("kengenKubun", kengenKubun);
         model.addAttribute("users", users);
         model.addAttribute("companyCheck", companyCheck);
         model.addAttribute("soshikiCheck", soshikiCheck);
         model.addAttribute("kengenCheck", kengenCheck);
+        model.addAttribute("kengenKubun", kengenKubun);
 
         List<KaisyaMst> companies = kaisyaMstService.searchCompaniesByName(companyNameInput);
         model.addAttribute("companies", companies);

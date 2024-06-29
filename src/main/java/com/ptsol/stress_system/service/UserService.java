@@ -25,4 +25,7 @@ public class UserService {
     public User findById(String userId) {
         return userMapper.findById(userId);
     }
+    public void deleteUser(String userId) {
+        userMapper.deleteUser(userId);
+    }
 }

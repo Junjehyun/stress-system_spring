@@ -6,9 +6,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
 
 import com.ptsol.stress_system.model.User;
 import com.ptsol.stress_system.service.CreateCompanySoshikiService;
+
+import jakarta.validation.Valid;
 
 @Controller
 public class DoctorCreateController {
@@ -40,7 +43,7 @@ public class DoctorCreateController {
         model.addAttribute("hiddenKengenCheck", hiddenKengenCheck);
         model.addAttribute("companyNameInput", hiddenCompanyNameInput);
         model.addAttribute("soshikiNameInput", hiddenSoshikiNameInput);
-        model.addAttribute("companyNameOutput", hiddenCompanyNameOutput);
+        model.addAttribute("hiddenCompanyNameOutput", hiddenCompanyNameOutput);
         model.addAttribute("hiddenKengenKubun", hiddenKengenKubun);
         return "/stress/doctor-create";
     }
@@ -52,8 +55,19 @@ public class DoctorCreateController {
      * @return リダイレクトURL
      */
     @PostMapping("/doctor-create")
-    public String createUser(@ModelAttribute User user) {
-        createCompanySoshikiService.CreateUser(user);
+    public String createUser(@Valid @ModelAttribute User user, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("companyNames", createCompanySoshikiService.getCompanyNames());
+            model.addAttribute("soshikiNames", createCompanySoshikiService.getSoshikiNames());
+            
+            bindingResult.getAllErrors().forEach(error -> {
+                System.out.println("Error: " + error.getDefaultMessage());
+            });
+            
+            // 유효성 검사 오류 처리
+            return "stress/doctor-create"; // 폼 페이지로 리다이렉트 (예시)
+        }
+        createCompanySoshikiService.createUser(user);
         return "redirect:/doctor-list";
     }
 

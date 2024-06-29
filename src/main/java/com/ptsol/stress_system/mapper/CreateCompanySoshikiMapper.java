@@ -1,6 +1,5 @@
 package com.ptsol.stress_system.mapper;
 
-import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import com.ptsol.stress_system.model.User;
 import java.util.List;

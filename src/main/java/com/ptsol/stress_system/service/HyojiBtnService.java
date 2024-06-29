@@ -29,7 +29,7 @@ public class HyojiBtnService {
     (
         String companyNameSelected,
         String soshikiNameSelected,
-        Integer kengenKubun
+        String kengenKubun
     ) 
     {   return hyojiBtnMapper.hyojiSearchUsers(
             companyNameSelected, 
