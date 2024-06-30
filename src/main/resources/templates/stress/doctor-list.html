@@ -12,42 +12,38 @@
                             <!--会社名-->
                             <div class="d-flex align-items-center justify-content-start mb-3">
                                 <div class="form-check form-check-inline">
-                                    <input type="checkbox" id="companyCheck" name="companyCheck" th:checked="${companyCheck}" class="form-checkbox form-check-input">
+                                    <input type="checkbox" id="companyCheck" name="companyCheck" th:checked="${companyCheck}" class="form-checkbox form-check-input" onchange="changeActiveCheckBox()">
                                     <!--Hidden CompanyCheck Tag-->
                                     <input type="hidden" id="hiddenCompanyCheck" name="hiddenCompanyCheck" th:value="${companyCheck == true ? 'true' : 'false'}">
                                     <label class="form-check-label text-black-50 fw-bold">会社名</label>
                                 </div>
-                                <input th:id="companyNameInput" th:name="companyNameInput" th:value="${companyNameInput}" type="text" class="form-control mx-2" placeholder="会社名を入力" style="width: 30%;">
+                                <input th:id="companyNameInput" th:name="companyNameInput" th:value="${companyNameInput}" type="text" class="form-control mx-2" placeholder="会社名を入力" style="width: 30%;" disabled>
                                 <!--Hidden CompanyNameInput Tag-->
                                 <input type="hidden" id="hiddenCompanyNameInput" name="hiddenCompanyNameInput" th:value="${companyNameInput}">
-                                <button type="button" class="btn btn-outline-secondary fw-bold mx-2" onclick="searchCompanies()">
+                                <button type="button" class="btn btn-outline-secondary fw-bold mx-2" onclick="searchCompanies()" disabled>
                                     検索
                                 </button>
-                                <!-- <select th:id="companyNameOutput" th:name="companyNameOutput" th:selected="${companyNameOutput}" class="form-select mx-2" style="width: 30%;">
-                                    <option value="">会社名を選択</option>
-                                    <option th:each="company : ${companies}" th:value="${company.kaisyaCode}" th:text="${company.kaisyaNameJpn}" th:selected="${company.kaisyaCode == companyNameOutput}"></option>
-                                </select> -->
-                                <select th:id="companyNameOutput" th:name="companyNameOutput" class="form-select mx-2" style="width: 30%;">
+                                <select th:id="companyNameOutput" th:name="companyNameOutput" class="form-select mx-2" style="width: 30%;" disabled>
                                     <option value="">会社名を選択</option>
                                     <option th:each="company : ${companies}" th:value="${company.kaisyaCode}" th:text="${company.kaisyaNameJpn}" th:selected="${company.kaisyaCode == companyNameOutput}"></option>
                                 </select>
                                 <!--Hidden CompanyNameOutput Tag-->
-                                <input type="text" id="hiddenCompanyNameOutput" name="hiddenCompanyNameOutput" th:value="${companyNameOutput}">
+                                <input type="hidden" id="hiddenCompanyNameOutput" name="hiddenCompanyNameOutput" th:value="${companyNameOutput}">
                             </div>
                             <div class="d-flex align-items-center justify-content-start mb-3">
                                 <div class="form-check form-check-inline"> 
-                                    <input type="checkbox" id="soshikiCheck" name="soshikiCheck" th:checked="${soshikiCheck}" class="form-checkbox form-check-input">
+                                    <input type="checkbox" id="soshikiCheck" name="soshikiCheck" th:checked="${soshikiCheck}" class="form-checkbox form-check-input" onchange="changeActiveCheckBox()">
                                     <!--Hidden SoshikiCheck Tag-->
                                     <input type="hidden" id="hiddenSoshikiCheck" name="hiddenSoshikiCheck" th:value="${soshikiCheck == true ? 'true' : 'false'}">
                                     <label class="form-check-label text-black-50 fw-bold">組織名</label>
                                 </div>
-                                <input th:id="soshikiNameInput" th:name="soshikiNameInput" th:value="${soshikiNameInput}" type="text" class="form-control mx-2" placeholder="組織名を入力" style="width: 30%;">
+                                <input th:id="soshikiNameInput" th:name="soshikiNameInput" th:value="${soshikiNameInput}" type="text" class="form-control mx-2" placeholder="組織名を入力" style="width: 30%;" disabled>
                                 <!--Hidden SoshikiNameInput Tag-->
                                 <input type="hidden" id="hiddenSoshikiNameInput" name="hiddenSoshikiNameInput" th:value="${soshikiNameInput}">
-                                <button type="button" class="btn btn-outline-secondary fw-bold mx-2" onclick="searchSoshikis()">
+                                <button type="button" class="btn btn-outline-secondary fw-bold mx-2" onclick="searchSoshikis()" disabled>
                                     検索
                                 </button>
-                                <select th:id="soshikiNameOutput" th:name="soshikiNameOutput" class="form-select mx-2" style="width: 30%;">
+                                <select th:id="soshikiNameOutput" th:name="soshikiNameOutput" class="form-select mx-2" style="width: 30%;" disabled>
                                     <option value="">組織名を選択</option>
                                     <option th:each="soshiki : ${soshikis}" th:value="${soshiki.soshikiCode}" th:text="${soshiki.soshikiNameJpn}" th:selected="${soshiki.soshikiCode == soshikiNameOutput}"></option>
                                 </select>
@@ -57,18 +53,18 @@
                             <!--権限区分-->
                             <div class="mt-4">
                                 <div class="form-check form-check-inline">
-                                    <input id="kengenCheck" name="kengenCheck" type="checkbox" class="form-checkbox form-check-input" th:checked="${kengenCheck}">
+                                    <input id="kengenCheck" name="kengenCheck" type="checkbox" class="form-checkbox form-check-input" th:checked="${kengenCheck}"  onchange="changeActiveCheckBox()">
                                     <!--Hidden KengenCheck Tag-->
                                     <input type="hidden" id="hiddenKengenCheck" name="hiddenKengenCheck" th:value="${kengenCheck == true ? 'true' : 'false'}">
                                     <span class="form-check-label text-black-50 fw-bold">権限区分</span>
                                 </div>
                                 <div class="mt-2">
                                     <div class="form-check form-check-inline" style="margin-right: 5px;">
-                                        <input type="radio" class="form-check-input" id="kengenKubun1" name="kengenKubun" value="1" th:checked="${kengenKubun == '1'}">
+                                        <input type="radio" class="form-check-input" id="kengenKubun1" name="kengenKubun" value="1" th:checked="${kengenKubun == '1'}" disabled>
                                         <label class="form-check-label text-black-50 fw-bold">全社</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input type="radio" class="form-check-input" id="kengenKubun2" name="kengenKubun" value="2" th:checked="${kengenKubun == '2'}">
+                                        <input type="radio" class="form-check-input" id="kengenKubun2" name="kengenKubun" value="2" th:checked="${kengenKubun == '2'}" disabled>
                                         <label class="form-check-label text-black-50 fw-bold">自社</label>
                                     </div>
                                 </div>
@@ -127,5 +123,6 @@
         <script th:src="@{js/moveCreateBtn.js}"></script>
         <script th:src="@{js/moveUpdateBtn.js}"></script>
         <script th:src="@{js/deleteBtn.js}"></script>
+        <script th:src="@{js/changeActiveCheckBox.js}"></script>
     </body>
 </html>

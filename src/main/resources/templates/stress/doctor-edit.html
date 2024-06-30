@@ -4,8 +4,8 @@
         <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">産業医情報編集</title>
     </head>
     <body>
-        <form th:action="@{/doctor-edit/update-user}" method="post">
-            <div layout:fragment="content" class="container" style="max-width: 72rem; padding-top: 2rem; padding-bottom: 2rem;">
+        <div layout:fragment="content" class="container" style="max-width: 72rem; padding-top: 2rem; padding-bottom: 2rem;">
+            <form th:action="@{/doctor-edit/update-user}" method="post">
                 <h1 class="text-center text-3xl font-bold mb-4">産業医情報編集</h1>
                 <div class="bg-light p-3 rounded shadow" style="gap: 12px; max-width: 70%; margin: 0 auto;">
                     <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
@@ -27,6 +27,8 @@
                                     </label>
                                     <select class="form-control" style="width: 200px;" id="companyName" name="companyName">
                                         <option th:value="${user.companyName}" th:text="${user.companyName}"></option>
+                                        <!--会社リストを追加-->
+                                        <option th:each="company : ${companyNames}" th:value="${company}" th:text="${company}"></option>
                                     </select>
                                 </div>
                                 <div class="form-check form-check-inline">
@@ -46,11 +48,11 @@
                             </div>
                             <div class="d-flex align-items-center justify-content-start mb-3" style="margin-left: -25px;">
                                 <div class="form-check form-check-inline" style="margin-right: 5px;">
-                                    <input type="radio" class="form-check-input" th:checked="${user.kengenKubun == 1}">
+                                    <input type="radio" name="kengenKubun" class="form-check-input" th:checked="${user.kengenKubun == 1}">
                                     <label class="form-check-label text-black-50 fw-bold">全社</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input type="radio" class="form-check-input" th:checked="${user.kengenKubun == 2}">
+                                    <input type="radio" name="kengenKubun" class="form-check-input" th:checked="${user.kengenKubun == 2}">
                                     <label class="form-check-label text-black-50 fw-bold">自社</label>
                                 </div>
                             </div>
@@ -61,8 +63,19 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </form>
+                <input type="hidden" name="hiddenCompanyCheck" th:value="${param.hiddenCompanyCheck}">
+                <input type="hidden" name="hiddenSoshikiCheck" th:value="${param.hiddenSoshikiCheck}">
+                <input type="hidden" name="hiddenKengenCheck" th:value="${param.hiddenKengenCheck}">
+
+                <input type="hidden" name="hiddenCompanyNameInput" th:value="${param.hiddenCompanyNameInput}">
+                <input type="hidden" name="hiddenSoshikiNameInput" th:value="${param.hiddenSoshikiNameInput}">
+                
+                <input type="hidden" name="hiddenCompanyNameOutput" th:value="${param.hiddenCompanyNameOutput}">
+                <input type="hidden" name="hiddenSoshikiNameOutput" th:value="${param.hiddenSoshikiNameOutput}">
+
+                <input type="hidden" name="hiddenKengenKubun" th:value="${param.hiddenKengenKubun}">
+            </form>
+        </div>
         <script th:src="@{js/cancelUpdateBtn.js}"></script>
     </body>
 </html>

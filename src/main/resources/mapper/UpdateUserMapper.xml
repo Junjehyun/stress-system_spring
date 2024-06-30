@@ -26,10 +26,10 @@
             USER
         SET
             name = #{name},
-            companyName = #{companyName},
-            organizationName = #{organizationName},
-            kengenKubun = #{kengenKubun}
+            KAISYA_CODE = #{companyName},
+            SOSHIKI_CODE = #{organizationName},
+            KENGEN_KUBUN = #{kengenKubun}
         WHERE
-            userId = #{userId}
+            user_Id = #{userId}
     </update>
 </mapper>

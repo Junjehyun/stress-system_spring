@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class KaisyaMst {
+
     private String kaisyaCode;
     private String torokuDate;
     private String torokuCn;
@@ -17,5 +18,5 @@ public class KaisyaMst {
     private String sakujoFlag;
     private String kaisyaNameJpn;
     private String kaisyaNameEng;
-
+    
 }

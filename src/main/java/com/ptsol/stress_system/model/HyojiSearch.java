@@ -4,6 +4,9 @@ import lombok.Data;
 
 /**
  * HyojiSearchクラスは、検索条件を保持するクラス
+ * 
+ * このクラスは、検索条件を保持するためのクラスであり、
+ * ユーザー情報を検索する際に使用される。
  */
 @Data
 public class HyojiSearch {
@@ -15,7 +18,4 @@ public class HyojiSearch {
     private String companyName;
     private String organizationName;
     private Integer kengenKubun;
-
-    // Getter and SetterはLombokで自動生成される
-
 }

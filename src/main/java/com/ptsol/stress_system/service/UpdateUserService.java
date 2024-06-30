@@ -17,6 +17,7 @@ public class UpdateUserService {
     }
 
     public void updateUser(User user) {
+        
         updateUserMapper.updateUser(user);
     }
 }

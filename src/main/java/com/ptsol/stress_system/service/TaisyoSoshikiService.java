@@ -11,7 +11,6 @@ import java.util.List;
 public class TaisyoSoshikiService {
     private final TaisyoSoshikiMapper taisyoSoshikiMapper;
 
-    @Autowired
     public TaisyoSoshikiService(TaisyoSoshikiMapper taisyoSoshikiMapper) {
         this.taisyoSoshikiMapper = taisyoSoshikiMapper;
     }

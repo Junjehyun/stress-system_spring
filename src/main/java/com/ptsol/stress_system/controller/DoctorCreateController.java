@@ -27,8 +27,9 @@ public class DoctorCreateController {
                         @RequestParam(name = "hiddenSoshikiCheck", required = false, defaultValue = "false") String hiddenSoshikiCheck,
                         @RequestParam(name = "hiddenKengenCheck", required = false, defaultValue = "false") String hiddenKengenCheck,
                         @RequestParam(name = "hiddenCompanyNameInput", required = false) String hiddenCompanyNameInput,
-                        @RequestParam(name = "hiddenSoshikiNameINput", required = false) String hiddenSoshikiNameInput,
+                        @RequestParam(name = "hiddenSoshikiNameInput", required = false) String hiddenSoshikiNameInput,
                         @RequestParam(name = "hiddenCompanyNameOutput", required = false) String hiddenCompanyNameOutput,
+                        @RequestParam(name = "hiddenSoshikiNameOutput", required = false) String hiddenSoshikiNameOutput,
                         @RequestParam(name = "hiddenKengenKubun", required = false) String hiddenKengenKubun,
                         Model model) {
 
@@ -44,6 +45,7 @@ public class DoctorCreateController {
         model.addAttribute("companyNameInput", hiddenCompanyNameInput);
         model.addAttribute("soshikiNameInput", hiddenSoshikiNameInput);
         model.addAttribute("hiddenCompanyNameOutput", hiddenCompanyNameOutput);
+        model.addAttribute("hiddenSoshikiNameOutput", hiddenSoshikiNameOutput);
         model.addAttribute("hiddenKengenKubun", hiddenKengenKubun);
         return "/stress/doctor-create";
     }
@@ -64,8 +66,7 @@ public class DoctorCreateController {
                 System.out.println("Error: " + error.getDefaultMessage());
             });
             
-            // 유효성 검사 오류 처리
-            return "stress/doctor-create"; // 폼 페이지로 리다이렉트 (예시)
+            return "stress/doctor-create";
         }
         createCompanySoshikiService.createUser(user);
         return "redirect:/doctor-list";

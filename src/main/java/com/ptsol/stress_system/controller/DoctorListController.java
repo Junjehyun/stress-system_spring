@@ -55,21 +55,25 @@ public class DoctorListController {
     @GetMapping("/doctor-list")
     public String doctorList(@RequestParam(name = "companyCheck", required = false) Boolean companyCheck,
                             @RequestParam(name = "soshikiCheck", required = false) Boolean soshikiCheck,
-                            @RequestParam(name = "kengenCheck", required = false) Boolean kengenCheck,
+                            @RequestParam(name = "kengenCheck", required = false) String kengenCheck,
                             @RequestParam(name = "companyNameInput", required = false) String companyNameInput,
                             @RequestParam(name = "soshikiNameInput", required = false) String soshikiNameINput,
                             @RequestParam(name = "companyNameOutput", required = false) String companyNameOutput,
+                            @RequestParam(name = "soshikiNameOutput", required = false) String soshikiNameOutput,
                             @RequestParam(name = "kengenKubun", required = false) String kengenKubun,
                             Model model) {
 
         List<User> users = userService.getAllUsersWithDetails();
-
+        
+        model.addAttribute("companies", kaisyaMstService.searchCompaniesByName(companyNameInput));
+        model.addAttribute("soshikis", taisyoSoshikiService.searchSoshikiByName(soshikiNameINput));
         model.addAttribute("companyCheck", companyCheck);
         model.addAttribute("soshikiCheck", soshikiCheck);
         model.addAttribute("kengenCheck", kengenCheck);
         model.addAttribute("companyNameInput", companyNameInput);
         model.addAttribute("soshikiNameInput", soshikiNameINput);
         model.addAttribute("companyNameOutput", companyNameOutput);
+        model.addAttribute("soshikiNameOutput", soshikiNameOutput);
         model.addAttribute("kengenKubun", kengenKubun);
         model.addAttribute("users", users);
         return "stress/doctor-list";

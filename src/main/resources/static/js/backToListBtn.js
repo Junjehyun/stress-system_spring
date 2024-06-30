@@ -7,6 +7,7 @@ $(document).ready(function() {
         var hiddenCompanyNameInputValue = $("input[name='hiddenCompanyNameInput']").val();
         var hiddenSoshikiNameInputValue = $("input[name='hiddenSoshikiNameInput']").val();
         var hiddenCompanyNameOutputValue = $("input[name='hiddenCompanyNameOutput']").val();
+        var hiddenSoshikiNameOutputValue = $("input[name='hiddenSoshikiNameOutput']").val();
         var hiddenKengenKubunValue = $("input[name='hiddenKengenKubun']").val();
 
         window.location.href = "/doctor-list?companyCheck=" + hiddenCompanyCheckValue + 
@@ -15,6 +16,7 @@ $(document).ready(function() {
         "&companyNameInput=" + encodeURIComponent(hiddenCompanyNameInputValue) +
         "&soshikiNameInput=" + encodeURIComponent(hiddenSoshikiNameInputValue) +
         "&companyNameOutput=" + encodeURIComponent(hiddenCompanyNameOutputValue) +
+        "&soshikiNameOutput=" + encodeURIComponent(hiddenSoshikiNameOutputValue) +
         "&kengenKubun=" + encodeURIComponent(hiddenKengenKubunValue);
 
     });

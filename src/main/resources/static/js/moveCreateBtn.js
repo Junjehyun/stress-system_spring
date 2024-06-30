@@ -10,6 +10,7 @@ $(document).ready(function() {
         var soshikiNameInputValue = $("#soshikiNameInput").val();
 
         var companyNameOutputValue = $("#companyNameOutput").val();
+        var soshikiNameOutputValue = $("#soshikiNameOutput").val();
 
         var kengenKubunValue = $("input[name='kengenKubun']:checked").val();
 
@@ -19,6 +20,7 @@ $(document).ready(function() {
             "&hiddenCompanyNameInput=" + encodeURIComponent(companyNameInputValue) +
             "&hiddenSoshikiNameInput=" + encodeURIComponent(soshikiNameInputValue) +
             "&hiddenCompanyNameOutput=" + encodeURIComponent(companyNameOutputValue) +
+            "&hiddenSoshikiNameOutput=" + encodeURIComponent(soshikiNameOutputValue) +
             "&hiddenKengenKubun=" + encodeURIComponent(kengenKubunValue);
     }); 
 });
