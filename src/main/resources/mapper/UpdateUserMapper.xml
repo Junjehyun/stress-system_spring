@@ -30,6 +30,6 @@
             SOSHIKI_CODE = #{organizationName},
             KENGEN_KUBUN = #{kengenKubun}
         WHERE
-            user_Id = #{userId}
+            USER_ID = #{userId}
     </update>
 </mapper>

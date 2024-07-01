@@ -8,13 +8,21 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ptsol.stress_system.service.UserService;
-
+/**
+ * 医師削除コントローラクラス。
+ */
 @Controller
 public class DoctorDeleteController {
 
     @Autowired
     private UserService userService;
 
+    /**
+     * 医師削除処理を行うメソッド。
+     * 
+     * @param userId 削除対象のユーザID
+     * @return 削除結果
+     */
     @DeleteMapping("/delete")
     public ResponseEntity<Void> deleteUser(@RequestParam("userId") String userId) {
         System.out.println("DELETE 요청 수신: userId=" + userId); // 디버그 로그 추가

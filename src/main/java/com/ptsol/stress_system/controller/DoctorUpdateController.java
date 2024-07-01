@@ -3,6 +3,8 @@ package com.ptsol.stress_system.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,15 +12,28 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.ptsol.stress_system.model.KaisyaMst;
 import com.ptsol.stress_system.model.User;
 import com.ptsol.stress_system.service.CreateCompanySoshikiService;
-import com.ptsol.stress_system.service.KaisyaMstService;
 import com.ptsol.stress_system.service.UpdateUserService;
+import com.ptsol.stress_system.validation.ValidationGroups;
+
 
 import java.util.List;
-
-
+/**
+ * 修正画面へ移動する
+ * 
+ * @param model
+ * @param userId
+ * @param companyCheck
+ * @param soshikiCheck
+ * @param kengenCheck
+ * @param companyNameInput
+ * @param soshikiNameInput
+ * @param companyNameOutput
+ * @param soshikiNameOutput
+ * @param kengenKubun
+ * @return stress/doctor-edit
+ */
 @Controller
 @RequestMapping("/doctor-edit")
 public class DoctorUpdateController {
@@ -41,8 +56,9 @@ public class DoctorUpdateController {
                             @RequestParam(name = "kengenKubun", required = false) String kengenKubun) {
 
         User user = updateUserService.getUserById(userId);
-        // 여기서 회사명 리스트 가져오는거부터 시작 하면 됨. 
+
         List<String> companyNames = createCompanySoshikiService.getCompanyNames();
+        List<String> soshikiNames = createCompanySoshikiService.getSoshikiNames();
 
         model.addAttribute("user", user);
         model.addAttribute("companyCheck", companyCheck);
@@ -54,15 +70,34 @@ public class DoctorUpdateController {
         model.addAttribute("soshikiNameOutput", soshikiNameOutput);
         model.addAttribute("kengenKubun", kengenKubun);
         model.addAttribute("companyNames", companyNames);
+        model.addAttribute("soshikiNames", soshikiNames);
         
         return "stress/doctor-edit";
     }
 
+    /**
+     * ユーザー情報を更新する
+     * 
+     * @param user
+     * @param result
+     * @param model
+     * @return redirect:/doctor-list
+     */
     @PostMapping("/update-user")
-    public String updateUser(@ModelAttribute User user) {
+    public String updateUser(@Validated(ValidationGroups.Update.class) @ModelAttribute("user") User user, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("companyNames", createCompanySoshikiService.getCompanyNames());
+            model.addAttribute("soshikiNames", createCompanySoshikiService.getSoshikiNames());
 
+        User existingUser = updateUserService.getUserById(user.getUserId());
+        user.setCompanyName(existingUser.getCompanyName());
+        user.setOrganizationName(existingUser.getOrganizationName());
+        user.setKengenCheck(existingUser.getKengenCheck());
+        user.setKengenKubun(existingUser.getKengenKubun());
+
+            return "stress/doctor-edit";
+        }
         updateUserService.updateUser(user);
-
         return "redirect:/doctor-list";
     }
 

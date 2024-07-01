@@ -7,12 +7,15 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 
 import com.ptsol.stress_system.model.User;
 import com.ptsol.stress_system.service.CreateCompanySoshikiService;
+import com.ptsol.stress_system.validation.ValidationGroups;
 
-import jakarta.validation.Valid;
-
+/**
+ * 医師登録画面のコントローラクラス。
+ */
 @Controller
 public class DoctorCreateController {
 
@@ -22,6 +25,20 @@ public class DoctorCreateController {
         this.createCompanySoshikiService = createCompanySoshikiService;
     }
 
+    /**
+     * 医師登録画面を表示するメソッド。
+     * 
+     * @param hiddenCompanyCheck 会社名の入力欄が表示されているかどうか
+     * @param hiddenSoshikiCheck 組織名の入力欄が表示されているかどうか
+     * @param hiddenKengenCheck 権限の入力欄が表示されているかどうか
+     * @param hiddenCompanyNameInput 会社名の入力欄に入力された値
+     * @param hiddenSoshikiNameInput 組織名の入力欄に入力された値
+     * @param hiddenCompanyNameOutput 会社名の出力欄に表示される値
+     * @param hiddenSoshikiNameOutput 組織名の出力欄に表示される値
+     * @param hiddenKengenKubun 権限の選択欄に選択された値
+     * @param model Modelオブジェクト
+     * @return 医師登録画面のテンプレートパス
+     */
     @GetMapping("/doctor-create")
     public String main(@RequestParam(name = "hiddenCompanyCheck", required = false, defaultValue = "false") String hiddenCompanyCheck,
                         @RequestParam(name = "hiddenSoshikiCheck", required = false, defaultValue = "false") String hiddenSoshikiCheck,
@@ -55,9 +72,10 @@ public class DoctorCreateController {
      * 
      * @param user フォームから送信されたUserオブジェクト
      * @return リダイレクトURL
+     * @throws Exception
      */
     @PostMapping("/doctor-create")
-    public String createUser(@Valid @ModelAttribute User user, BindingResult bindingResult, Model model) {
+    public String createUser(@Validated(ValidationGroups.Create.class) @ModelAttribute User user, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("companyNames", createCompanySoshikiService.getCompanyNames());
             model.addAttribute("soshikiNames", createCompanySoshikiService.getSoshikiNames());

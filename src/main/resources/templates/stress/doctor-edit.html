@@ -5,7 +5,7 @@
     </head>
     <body>
         <div layout:fragment="content" class="container" style="max-width: 72rem; padding-top: 2rem; padding-bottom: 2rem;">
-            <form th:action="@{/doctor-edit/update-user}" method="post">
+            <form th:action="@{/doctor-edit/update-user}" th:object="${user}" method="post">
                 <h1 class="text-center text-3xl font-bold mb-4">産業医情報編集</h1>
                 <div class="bg-light p-3 rounded shadow" style="gap: 12px; max-width: 70%; margin: 0 auto;">
                     <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
@@ -13,11 +13,13 @@
                             <div class="d-flex align-items-center justify-content-center mb-3">
                                 <div class="form-check form-check-inline">
                                     <label class="form-check-label text-black-50 fw-bold mb-2">社員ID</label>
-                                    <input name="userId" th:value="${user.userId}" type="text" class="form-control" style="width: 200px;" readonly>
+                                    <input th:name="userId" th:value="${user.userId}" type="text" class="form-control" style="width: 200px;" readonly>
+                                    <div th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}" class="text-danger"></div>
                                 </div>
                                 <div class="form-check form-check-inline">
                                     <label class="form-check-label text-black-50 fw-bold mb-2">氏名</label>
-                                    <input name="name" th:value="${user.name}" type="text" class="form-control" style="width: 200px;">
+                                    <input th:name="name" th:value="${user.name}" type="text" class="form-control" style="width: 200px;">
+                                    <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger"></div>
                                 </div>
                             </div>
                             <div class="d-flex align-items-center justify-content-center mb-3">
@@ -26,35 +28,37 @@
                                         会社名
                                     </label>
                                     <select class="form-control" style="width: 200px;" id="companyName" name="companyName">
-                                        <option th:value="${user.companyName}" th:text="${user.companyName}"></option>
-                                        <!--会社リストを追加-->
-                                        <option th:each="company : ${companyNames}" th:value="${company}" th:text="${company}"></option>
+                                        <option th:each="companyName : ${companyNames}" th:value="${companyName['Kcode']}" th:text="${companyName['Kname']}" th:selected="${companyName['Kname'] == user.companyName}"></option>
                                     </select>
+                                    <div th:if="${#fields.hasErrors('kaisyaCode')}" th:errors="*{kaisyaCode}" class="text-danger"></div>
                                 </div>
                                 <div class="form-check form-check-inline">
                                     <label class="form-check-label text-black-50 fw-bold mb-2">
                                         組織名
                                     </label>
-                                    <select class="form-control" style="width: 200px;">
-                                        <option th:value="${user.organizationName}" th:text="${user.organizationName}"></option>
+                                    <select class="form-control" style="width: 200px;" id="organizationName" name="organizationName">
+                                        <option th:each="soshikiName : ${soshikiNames}" th:value="${soshikiName['Scode']}" th:text="${soshikiName['Sname']}" th:selected="${soshikiName['Sname'] == user.organizationName}"></option>
+                                        <div th:if="${#fields.hasErrors('soshikiCode')}" th:errors="*{soshikiCode}" class="text-danger"></div>
                                     </select>
                                 </div>
                             </div>
                             <div class="d-flex align-items-center justify-content-start mb-3">
                                 <div class="form-check form-check-inline" style="margin-left: -25px;">
-                                    <input type="checkbox" class="form-checkbox form-check-input" checked>
+                                    <input th:id="kengenCheck" th:name="kengenCheck" value="1" type="checkbox" class="form-checkbox form-check-input" checked>
                                     <span class="form-check-label text-black-50 fw-bold">権限区分</span>
+                                    <div th:if="${#fields.hasErrors('kengenCheck')}" th:errors="*{kengenCheck}" class="text-danger"></div>
                                 </div>
                             </div>
                             <div class="d-flex align-items-center justify-content-start mb-3" style="margin-left: -25px;">
                                 <div class="form-check form-check-inline" style="margin-right: 5px;">
-                                    <input type="radio" name="kengenKubun" class="form-check-input" th:checked="${user.kengenKubun == 1}">
+                                    <input type="radio" name="kengenKubun" th:value="1" class="form-check-input" th:checked="${user.kengenKubun == 1}">
                                     <label class="form-check-label text-black-50 fw-bold">全社</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input type="radio" name="kengenKubun" class="form-check-input" th:checked="${user.kengenKubun == 2}">
+                                    <input type="radio" name="kengenKubun" th:value="2" class="form-check-input" th:checked="${user.kengenKubun == 2}">
                                     <label class="form-check-label text-black-50 fw-bold">自社</label>
                                 </div>
+                                <div th:if="${#fields.hasErrors('kengenKubun')}" th:errors="*{kengenKubun}" class="text-danger"></div>
                             </div>
                             <div class="d-flex align-items-center justify-content-center">
                                 <button type="submit" class="btn btn-outline-primary fw-bold" style="margin-right: 10px;">編集</button>
